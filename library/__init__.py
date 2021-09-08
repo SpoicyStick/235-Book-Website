@@ -19,8 +19,7 @@ def create_some_book():
 
 def create_app():
     app = Flask(__name__)
-    create_some_book()
-
+    some_book = create_some_book()
     with app.app_context():
         from books_blueprint import books
         app.register_blueprint(books.books_blueprint)
