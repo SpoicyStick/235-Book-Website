@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<head>
+    <title>List of Books</title>
+</head>
+
+
+<body>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Pulisher</th>
+        </tr>
+        {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.publisher }}, {{ book.publish_year }}</td>
+
+                <td><form action="https://google.com">
+                    <input type="submit" value="Learn More" />
+                    </form></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</body>
+
+{% endblock %}
