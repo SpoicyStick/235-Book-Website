@@ -1,21 +1,23 @@
+
+/* Styling for book_info.html*/
+
 div.basic-book-info{
     display: inline-block;
-    width: 100%;
-
+    width: 95%;
 }
 
 div.book-image {
     text-align: left;
     float: left;
     padding:20px;
+    height: 400px;
 }
 div.book-image img{
-    height: 600px;
+    height: 100%;
 }
 
 div.book-information {
     text-align: left;
-    padding:20px;
 }
 
 div.rating-info {
@@ -33,6 +35,8 @@ div.rating-star img{
     height:100%;
 }
 
+
+/* Styling for list_of_book.html*/
 
 
 .column {

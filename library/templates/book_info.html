@@ -53,9 +53,11 @@
                 <p>Unavailable as e-book.</p>
             {% endif %}
 
+            <div class="book-description">
+                <h2>Description</h2>
+                <p>{{ book.description }}</p>
+            </div>
 
-            <h2>Description</h2>
-            <p>{{ book.description }}</p>
 
             <p>Publisher: {{book.publisher.name}}</p>
 
