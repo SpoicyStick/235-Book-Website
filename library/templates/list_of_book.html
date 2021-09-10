@@ -8,6 +8,14 @@
 
 
 <body>
+
+    <style>
+        table, th {
+            text-align: right;
+            padding-left: 10px;
+        }
+    </style>
+
     <table>
         <tr>
             <th>Title</th>
@@ -15,14 +23,19 @@
             <th>Pulisher</th>
         </tr>
         {% for book in books %}
+
             <tr>
+
                 <td>{{ book.title }}</td>
-                <td>{{ book.author }}</td>
+                <td>{{ book.authors}}</td>
                 <td>{{ book.publisher }}, {{ book.publish_year }}</td>
 
-                <td><form action="https://google.com">
+                <td><img src={{book.image}}><br>
+                    <form action="https://google.com">
                     <input type="submit" value="Learn More" />
-                    </form></td>
+                    </form>
+                </td>
+
             </tr>
         {% endfor %}
     </table>
