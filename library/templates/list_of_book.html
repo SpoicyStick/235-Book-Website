@@ -1,22 +1,42 @@
 {% extends 'layout.html' %}
-
 {% block content %}
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <head>
     <title>List of Books</title>
 </head>
 
 <style>
-table, th, td {
-  border:1px solid black;
-}
+    table, th, td {
+      border:1px solid black;
+    }
+
+    table.book_list td:nth-child(4){
+        width:100px;
+        position: relative;
+    }
+
+    table.book_list td:nth-child(4) div{
+        background-color: gold;
+        position: absolute;
+        top:0;
+        left:0;
+        height:18px;
+        z-index: 100;
+    }
+    table.book_list td:nth-child(4) img{
+        position: absolute;
+        top:0;
+        left:0;
+        width: 100%;
+        z-index:110;
+    }
 </style>
 
 <body>
 
-    <table style="width:100%">
+    <table class="book_list" style="width:100%">
 
         <tr>
             <th>ID</th>
@@ -42,12 +62,14 @@ table, th, td {
 
                   <td>
                     {% for author in book.authors %}
-                    {{ author.full_name }}<br>
+                        {{ author.full_name }}<br>
                     {% endfor %}
                   </td>
 
                   <td>
-                    {{ book.rating }}
+                      <div style="width: calc(20% * {{ book.average_rating }})"></div>
+                          <img src="{{ url_for('static', filename='images/stars.png') }}" alt="{{ book.average_rating }}" title="{{ book.average_rating }}">
+
                   </td>
               </tr>
             {% endfor %}
