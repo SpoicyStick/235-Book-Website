@@ -1,0 +1,19 @@
+div.basic-book-info{
+    display: inline-block;
+    width: 100%;
+
+}
+
+div.book-image {
+    text-align: left;
+    float: left;
+    padding:20px;
+}
+div.book-image img{
+    height: 500px;
+}
+
+div.book-information {
+    text-align: right;
+    padding:20px;
+}
