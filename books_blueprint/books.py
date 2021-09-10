@@ -33,6 +33,7 @@ def simple_book():
                          warning from a strange impish creature who says that if Harry returns to Hogwarts, \
                          disaster will strike."
     a_book.release_year = 1999
+    a_book.ebook = False
     a_book.image = "https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9781/4088/9781408855669.jpg"
     return render_template(
         'simple_book.html',
