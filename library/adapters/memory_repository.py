@@ -28,6 +28,7 @@ class MemoryRepository(AbstractRepository):
     def get_book(self, id: int):
         return next((book for book in self.__books if book.book_id == id), None)
 
+
 def load_books(data_path: Path, repo: MemoryRepository):
     books_filename = str(data_path / "comic_books_excerpt.json")
     author_filename = str(data_path / "book_authors_excerpt.json")

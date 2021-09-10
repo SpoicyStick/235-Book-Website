@@ -16,17 +16,25 @@
         <!--item description, top right-->
         <div class = 'book-information'>
             <h1>{{ book.title }}</h1>
+            <p>By {{book.authors}}</p>
             <p>Release year: <b>{{ book.release_year }}</b></p>
+            <p>Average rating: {{book.average_rating}}</p>
+            {% if book.ebook==true %}
+                <p>Available as e-book!</p>
+            {% else %}
+                <p>Unavailable as e-book.</p>
+            {% endif %}
+            <div class = 'book-description'>
+                <h2>Description</h2>
+                <p>{{ book.description }}</p>
+            </div>
 
         </div>
     </div>
 
 
 
-    <div class = 'book-description'>
-        <h2>Description</h2>
-        <p>{{ book.description }}</p>
-    </div>
+
 
 
 </body>

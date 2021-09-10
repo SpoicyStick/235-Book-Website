@@ -117,6 +117,7 @@ class Book:
         self.__ebook = None
         self.__num_pages = None
         self.__image = None
+        self.__average_rating = None
 
 
     @property
@@ -154,8 +155,22 @@ class Book:
             raise ValueError
 
     @property
+    def average_rating(self) -> int:
+        return self.__average_rating
+
+    @average_rating.setter
+    def average_rating(self, average_rating : float):
+        if isinstance(average_rating, float) and average_rating>=0:
+            self.__average_rating = average_rating
+        else:
+            raise ValueError
+
+
+
+    @property
     def release_year(self) -> int:
         return self.__release_year
+
 
     @release_year.setter
     def release_year(self, release_year: int):
