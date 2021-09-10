@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import List
 
 from library.adapters.repository import AbstractRepository, RepositoryException
-from library.domain.model import Book
+from library.domain.model import Book, BooksInventory
 from library.adapters.jsondatareader import BooksJSONReader
 
 class MemoryRepository(AbstractRepository):
