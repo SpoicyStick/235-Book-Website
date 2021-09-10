@@ -2,6 +2,8 @@
 
 {% block content %}
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <head>
     <title>List of Books</title>
 </head>
@@ -24,6 +26,7 @@ table, th, td {
         </tr>
             {% for book in books %}
               <tr>
+
                   <td>
                       <form method="POST" action="/single_book" class="inline">
                           <input type="hidden" name="book_id" value="{{ book.book_id }}">
@@ -32,15 +35,20 @@ table, th, td {
                           </button>
                       </form>
                   </td>
-                <td>
+
+                  <td>
                     {{ book.title }}
-                </td>
-                <td>
+                  </td>
+
+                  <td>
                     {% for author in book.authors %}
                     {{ author.full_name }}<br>
                     {% endfor %}
-                </td>
+                  </td>
 
+                  <td>
+                    {{ book.rating }}
+                  </td>
               </tr>
             {% endfor %}
     </table>
