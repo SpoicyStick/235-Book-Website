@@ -13,7 +13,7 @@ def home():
         'home.html',
         home_url = url_for('books_bp.home'),
         list_url = url_for('books_bp.list_book'),
-        book_url = url_for('books_bp.simple_book')
+        book_url = url_for('books_bp.book_info')
     )
 
 @books_blueprint.route('/book')
@@ -23,16 +23,16 @@ def list_book():
         books = repo.repo_instance,
         home_url = url_for('books_bp.home'),
         list_url = url_for('books_bp.list_book'),
-        book_url=url_for('books_bp.simple_book')
+        book_url=url_for('books_bp.book_info')
     )
-@books_blueprint.route('/single_book', methods=['GET'])
-def simple_book():
+@books_blueprint.route('/book_info', methods=['GET'])
+def book_info():
     book_id = int(request.args.get('book_id'))
     return render_template(
-        'simple_book.html',
+        'book_info.html',
         book = repo.repo_instance.get_book(book_id),
         home_url = url_for('books_bp.home'),
         list_url = url_for('books_bp.list_book'),
-        book_url=url_for('books_bp.simple_book')
+        book_url=url_for('books_bp.book_info')
     )
 
