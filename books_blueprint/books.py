@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for
+from flask import Blueprint, render_template, url_for, request
 import library.adapters.repository as repo
 from library.domain.model import Book
 books_blueprint = Blueprint(
@@ -24,9 +24,10 @@ def list_book():
         list_url = url_for('books_bp.list_book'),
         book_url=url_for('books_bp.simple_book')
     )
-@books_blueprint.route('/single_book')
+@books_blueprint.route('/single_book', methods=['GET', 'POST'])
 def simple_book():
-    a_book = Book(1, "Harry Potter and the Chamber of Secrets")
+    book_id = int(request.form['book_id'])
+    a_book = Book(book_id, "Harry Potter and the Chamber of Secrets")
     a_book.description = "Ever since Harry Potter had come home for the summer, the Dursleys had been so mean \
                          and hideous that all Harry wanted was to get back to the Hogwarts School for \
                          Witchcraft and Wizardry. But just as he’s packing his bags, Harry receives a \
