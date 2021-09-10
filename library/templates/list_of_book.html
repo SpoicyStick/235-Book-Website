@@ -17,24 +17,31 @@
     </style>
 
     <table>
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Pulisher</th>
-        </tr>
+
         {% for book in books %}
 
             <tr>
+                <td>
+                    <a href="https://google.com ">
+                        <img title='{{book.title}}' src='{{book.image}}' >
+                    </a>
 
-                <td>{{ book.title }}</td>
-                <td>{{ book.authors}}</td>
-                <td>{{ book.publisher }}, {{ book.publish_year }}</td>
+                    <br><span style="
+                          display:inline-block;
+                          white-space: nowrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          max-width: 13ch;">
+                        {{ book.title }}
+                        </span>
+                    {% for author in book.authors %}
+                    <br>{{ author.full_name }}
 
-                <td><img src={{book.image}}><br>
-                    <form action="https://google.com">
-                    <input type="submit" value="Learn More" />
-                    </form>
+                    {% endfor %}
                 </td>
+
+
+
 
             </tr>
         {% endfor %}
