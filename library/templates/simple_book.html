@@ -15,10 +15,39 @@
 
         <!--item description, top right-->
         <div class = 'book-information'>
-            <h1>{{ book.title }}</h1>
-            <p>By {{book.authors}}</p>
-            <p>Release year: <b>{{ book.release_year }}</b></p>
-            <p>Average rating: {{book.average_rating}}</p>
+            <div class="book-heading">
+
+                <div class="rating-info">
+                    <p>Average rating: {{book.average_rating}}</p>
+                    <div class="rating-star" style="width: calc(20% * {{ book.average_rating }})">
+                        <img src="{{ url_for('static', filename='images/stars.png') }}" alt="{{ book.average_rating }}" title="{{ book.average_rating }}">
+                    </div>
+
+
+                </div>
+
+                <h1>{{ book.title }}</h1>
+                <p>By
+                        {% for author in book.authors %}
+                            {% if author != book.authors[-1] %}
+                                {{ author.full_name }},
+                            {% else %}
+                                {{ author.full_name }}
+                            {% endif %}
+                        {% endfor %}
+                </p>
+            </div>
+
+            <p>Release year:
+                {% if book.release_year != none %}
+                    {{ book.release_year }}
+                {% else %}
+                    Not available
+                {% endif %}
+            </p>
+
+
+
             {% if book.ebook==true %}
                 <p>Available as e-book!</p>
             {% else %}
