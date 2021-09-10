@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
-    <title>help</title>
+    <title>Example of title</title>
 </head>
+
+
 <body>
-    <header>
-        <h1>Books</h1>
-    </header>
+    {% include 'header.html'%}
     <div>
         <li><a href="{{ home_url }}">Home</a></li>
         <li><a href="{{ list_url }}">List of books</a></li>

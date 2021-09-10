@@ -108,8 +108,9 @@ class Book:
         self.__book_id = book_id
 
         # use the attribute setter
-        self.title = book_title
 
+        self.__isbn = None
+        self.title = book_title
         self.__description = None
         self.__publisher = None
         self.__authors = []
@@ -155,13 +156,24 @@ class Book:
             raise ValueError
 
     @property
-    def average_rating(self) -> int:
+    def average_rating(self) -> float:
         return self.__average_rating
 
     @average_rating.setter
     def average_rating(self, average_rating : float):
         if isinstance(average_rating, float) and average_rating>=0:
             self.__average_rating = average_rating
+        else:
+            raise ValueError
+
+    @property
+    def isbn(self) -> int:
+        return self.__isbn
+
+    @isbn.setter
+    def isbn(self, isbn_no : int):
+        if isinstance(isbn_no, int) and isbn_no>=0:
+            self.__isbn = isbn_no
         else:
             raise ValueError
 

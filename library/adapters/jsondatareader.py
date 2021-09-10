@@ -41,6 +41,12 @@ class BooksJSONReader:
             book_instance.publisher = Publisher(book_json['publisher'])
             book_instance.image = book_json['image_url']
 
+            try:
+                if book_json['isbn'] != "":
+                    book_instance.isbn = int(float(book_json['isbn']))
+            except:
+                pass
+
             if book_json['publication_year'] != "":
                 book_instance.release_year = int(book_json['publication_year'])
 

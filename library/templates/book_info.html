@@ -7,22 +7,15 @@
     <title>Simple Book</title>
 </head>
 <body>
-    <div class="basic-book-info">
-    <!--Img block, top left-->
+    <div class="book-info-top">
         <div class ='book-image'>
             <img src={{book.image}}>
         </div>
+        <div class = 'book-detail'>
 
-        <!--item description, top right-->
-        <div class = 'book-information'>
+
             <div class="book-heading">
 
-                <div class="rating-info">
-                    <p>Average rating: {{book.average_rating}}</p>
-                    <div class="rating-star" style="width: calc(20% * {{ book.average_rating }})">
-                        <img src="{{ url_for('static', filename='images/stars.png') }}" alt="{{ book.average_rating }}" title="{{ book.average_rating }}">
-                    </div>
-                </div>
 
 
                 <h1>{{ book.title }}</h1>
@@ -34,35 +27,93 @@
                                 {{ author.full_name }}
                             {% endif %}
                         {% endfor %}
+
                 </p>
+
             </div>
 
-            <p>Release year:
-                {% if book.release_year != none %}
-                    {{ book.release_year }}
-                {% else %}
-                    Not available
-                {% endif %}
-            </p>
 
 
-
-            {% if book.ebook==true %}
-                <p>Available as e-book!</p>
-            {% else %}
-                <p>Unavailable as e-book.</p>
-            {% endif %}
-
-
-            <h2>Description</h2>
-            <p>{{ book.description }}</p>
-
-            <p>Publisher: {{book.publisher.name}}</p>
+            <div class="rating">
+                <div class="rating-star" style="width: calc(20% * {{ book.average_rating }})">
+                    <img src="{{ url_for('static', filename='images/stars.png') }}" alt="{{ book.average_rating }}" title="{{ book.average_rating }}">
+                </div>
+                <p>Write a Review</p>
+                <p>20 reviews</p>
+            </div>
+        </div>
 
 
+        <div class="book-info-table" >
+            <table>
+                <tr>
+                    <th>ISBN</th>
+                    <td>
+                        {% if book.isbn != none %}
+                            {{book.isbn}}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                </tr>
 
+                <tr>
+                    <th>Release Year</th>
+                    <td>
+                        {% if book.release_year != none %}
+                            {{ book.release_year }}
+                         {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Publisher</th>
+                    <td>
+                        {% if book.publisher != none %}
+                            {{ book.publisher.name}}
+                         {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Number of Pages</th>
+
+                    <td>
+                        {% if book.num_pages != none %}
+                            {{book.num_pages}}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Ebook Availability</th>
+                    <td>
+                    {% if book.ebook==true %}
+                        Available
+                    {% else %}
+                        Unavailable
+                    {% endif %}
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
+
+    <div class="book-info-middle">
+        <div class="line"></div>
+        <div class="book-description">
+            <h2>Description</h2>
+            <p>{{ book.description }}</p>
+        </div>
+        <div class="line"></div>
+    </div>
+
 
 </body>
 
