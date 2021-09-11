@@ -154,27 +154,56 @@ div.book-description{
 }
 
 
-table, th, td {
-  border:1px solid black;
+
+
+
+
+.container{
+    width: 70%;
+    margin: auto;
+    margin-bottom: 200px;
+    overflow: hidden;
+    background: skyblue;
+    margin-top: 20px;
 }
 
-table.book_list td:nth-child(4){
-    width:100px;
-    position: relative;
+.container ul{
+    padding: 0px;
+    margin: 0px;
 }
 
-table.book_list td:nth-child(4) div{
-    background-color: gold;
-    position: absolute;
-    top:0;
-    left:0;
-    height:18px;
-    z-index: 100;
+
+.container ul li{
+    float:left;
+    list-style: none;
+    width:230px;
+    height:344px;
+    background: red;
+    margin :50px 0px 150px 80px;
+    border:2px solid blue;
+    box-sizing: border-box;
 }
-table.book_list td:nth-child(4) img{
-    position: absolute;
-    top:0;
-    left:0;
+.image_of_book:hover{
+    opacity: 0.8;
+}
+
+.container ul li .bottom{
     width: 100%;
-    z-index:110;
+    height: 50px;
+    text-align: left;
+    font-size: 15px;
+
 }
+
+.container ul li .bottom .button1{
+
+
+}
+
+@media screen and (max-width:1250px){
+    .container ul li{
+        width:40%;
+        margin-left: 40px;
+
+}
+
