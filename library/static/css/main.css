@@ -122,8 +122,9 @@ div.book-description{
     float: left;
     height: 80%;
     overflow: auto;
-    vertical-align: middle;
+    vertical-align: middle
 }
+
 
 /* Styling for list_of_book.html*/
 
