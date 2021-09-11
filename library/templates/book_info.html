@@ -4,7 +4,7 @@
 <head>
 
 
-    <title>Simple Book</title>
+    <title>{{ book.title }}</title>
 </head>
 <body>
     <div class="book-info">
@@ -43,120 +43,8 @@
                 <h2>Description</h2>
                  <p>{{ book.description }}</p>
             </div>
-
-
-        </div>
-
-    </div>
-
-<!--
-    <div class="book-info-top">
-        <div class ='book-image'>
-            <img src={{book.image}}>
-        </div>
-        <div class = 'book-detail'>
-
-
-            <div class="book-heading">
-
-
-
-                <h1>{{ book.title }}</h1>
-                <p>By
-                        {% for author in book.authors %}
-                            {% if author != book.authors[-1] %}
-                                {{ author.full_name }},
-                            {% else %}
-                                {{ author.full_name }}
-                            {% endif %}
-                        {% endfor %}
-
-                </p>
-
-            </div>
-
-
-
-            <div class="rating">
-                <div class="rating-star" style="width: calc(20% * {{ book.average_rating }})">
-                    <img src="{{ url_for('static', filename='images/stars.png') }}" alt="{{ book.average_rating }}" title="{{ book.average_rating }}">
-                </div>
-                <p>Write a Review</p>
-                <p>20 reviews</p>
-            </div>
-        </div>
-
-
-        <div class="book-info-table" >
-            <table>
-                <tr>
-                    <th>ISBN</th>
-                    <td>
-                        {% if book.isbn != none %}
-                            {{book.isbn}}
-                        {% else %}
-                            N/A
-                        {% endif %}
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>Release Year</th>
-                    <td>
-                        {% if book.release_year != none %}
-                            {{ book.release_year }}
-                         {% else %}
-                            N/A
-                        {% endif %}
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>Publisher</th>
-                    <td>
-                        {% if book.publisher != none %}
-                            {{ book.publisher.name}}
-                         {% else %}
-                            N/A
-                        {% endif %}
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>Number of Pages</th>
-
-                    <td>
-                        {% if book.num_pages != none %}
-                            {{book.num_pages}}
-                        {% else %}
-                            N/A
-                        {% endif %}
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>Ebook Availability</th>
-                    <td>
-                    {% if book.ebook==true %}
-                        Available
-                    {% else %}
-                        Unavailable
-                    {% endif %}
-                    </td>
-                </tr>
-            </table>
         </div>
     </div>
-
-    <div class="book-info-middle">
-        <div class="line"></div>
-        <div class="book-description">
-            <h2>Description</h2>
-            <p>{{ book.description }}</p>
-        </div>
-        <div class="line"></div>
-    </div>
--->
 
 
 
