@@ -7,6 +7,49 @@
     <title>Simple Book</title>
 </head>
 <body>
+    <div class="book-info">
+        <div class="book-info-left">
+            <img src={{book.image}}>
+        </div>
+
+        <div class="book-info-right">
+            <div class="basic-book-info">
+
+
+                <h1>{{ book.title }}</h1>
+                    ISBN: {% if book.isbn != none %}
+                                {{book.isbn}}
+                            {% else %}
+                                N/A
+                            {% endif %}
+
+                    | Author:
+                            {% for author in book.authors %}
+                                {% if author != book.authors[-1] %}
+                                    {{ author.full_name }},
+                                {% else %}
+                                    {{ author.full_name }}
+                                {% endif %}
+                            {% endfor %}
+            </div>
+
+            <div class="rating">
+                <div class="rating-star" style="width: calc(20% * {{ book.average_rating }})">
+                    <img src="{{ url_for('static', filename='images/stars.png') }}" alt="{{ book.average_rating }}" title="{{ book.average_rating }}">
+                </div>
+            </div>
+            <div class="book-description">
+                <br>
+                <h2>Description</h2>
+                 <p>{{ book.description }}</p>
+            </div>
+
+
+        </div>
+
+    </div>
+
+<!--
     <div class="book-info-top">
         <div class ='book-image'>
             <img src={{book.image}}>
@@ -113,6 +156,10 @@
         </div>
         <div class="line"></div>
     </div>
+-->
+
+
+
 
 
 </body>
