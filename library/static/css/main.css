@@ -16,9 +16,16 @@
 
 /* Styling for header.html*/
 .header {
-  background-color: #f1f1f1;
-  padding: 30px;
   text-align: center;
+  overflow: hidden;
+  height: 500px;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 155px;
+
+}
+
+.header img{
+    width: 100%;
 }
 /* Styling for navbar*/
 #navbar {
@@ -115,87 +122,9 @@ div.book-description{
     float: left;
     height: 80%;
     overflow: auto;
-    vertical-align: middle
-
-}
-/*
-
-div.book-info-top{
-    align-self: center;
-    overflow: auto;
-    padding-top:20px;
+    vertical-align: middle;
 }
 
-div.book-image {
-    text-align: left;
-    padding:0px 20px 0px 20px;
-    height: 400px;
-    float: left;
-}
-
-.book-image{
-    height:400px;
-    width: auto;
-}
-.book-image img{
-    height: 100%;
-}
-
-div.book-detail {
-    text-align: left;
-    overflow: auto;
-}
-
-div.rating {
-    float: left;
-}
-
-
-div.rating-star {
-    background-color: gold;
-    height: 40px;
-}
-div.rating-star img{
-    height:100%;
-
-}
-
-div.book-info-middle {
-    overflow: auto;
-    width: auto;
-    padding: 20px;
-}
-div.book-description {
-    float: left;
-}
-
-.book-info-table{
-    overflow: auto;
-    text-align:center;
-    height: 5%;
-
-}
-.book-info-table table{
-    border: none;
-    width: 80%
-
-}
-
-.book-info-table td{
-    border: none;
-    width: 100%
-}
-.book-info-table th{
-    border: none;
-    width: 50%
-}
-
-.book-info-table tr:nth-child(odd){
-    background-color: #EEEEEE;
-
-}
-
-*/
 /* Styling for list_of_book.html*/
 
 
