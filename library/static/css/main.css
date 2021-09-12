@@ -64,16 +64,6 @@
   padding-top: 60px;
 }
 
-.search-bar {
-    text-align: center;
-}
-
-.search-bar input{
-    float: center;
-    background-color: white;
-    width: 45%;
-    display: inline-block;
-}
 
 /* Styling for book_info.html*/
 
@@ -184,7 +174,7 @@ div.book-description{
 }
 .book-list-display li{
     width: 300px;
-    height: 500px;
+    height: 600px;
     display: inline-block;
     vertical-align: top;
 
@@ -200,18 +190,9 @@ div.book-description{
 }
 
 
-@media screen and (max-width:1250px){
-    .container ul li{
-        width:40%;
-        margin-left: 40px;
-}
 
-
-
-/* Styling for search_book_title.html*/
-
-.form-template input{
-    height: 400px;
-
-
+.search-form {
+    background-color: pink;
+    width: 50%;
+    padding: 10px;
 }
