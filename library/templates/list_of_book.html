@@ -36,9 +36,15 @@
 
 
         </li>
-            <div class="read-more">
-                <button>Read More</button>
-            </div>
+            <form method="get" action="/book_info" class="inline">
+                  <input type="hidden" name="book_id" value="{{ book.book_id }}">
+                  <div class="read-more">
+                      <button type="submit" value="submit_value" name="read-more-button">
+                          Read More
+                      </button>
+                  </div>
+            </form>
+
         </div>
         {% endfor %}
     </ul>
