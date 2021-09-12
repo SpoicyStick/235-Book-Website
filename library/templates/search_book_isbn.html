@@ -3,12 +3,12 @@
 
 <title>Search Book</title>
 <div class="search-form">
-    <h1>Search by title</h1>
+    <h1>Search by ISBN</h1>
     <form action="{{handler_url}}" method="post">
         <p>
             {{form.csrf_token}}
-            {{form.book_title.label}} <br>
-            {{form.book_title}}
+            {{form.book_isbn.label}} <br>
+            {{form.book_isbn}}
         </p>
         <p>
             {{form.submit}}
