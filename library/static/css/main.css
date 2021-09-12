@@ -64,16 +64,6 @@
   padding-top: 60px;
 }
 
-.search-bar {
-    text-align: center;
-}
-
-.search-bar input{
-    float: center;
-    background-color: white;
-    width: 45%;
-    display: inline-block;
-}
 
 /* Styling for book_info.html*/
 
@@ -200,9 +190,9 @@ div.book-description{
 }
 
 
-@media screen and (max-width:1250px){
-    .container ul li{
-        width:40%;
-        margin-left: 40px;
-}
 
+.search-form {
+    background-color: pink;
+    width: 50%;
+    padding: 10px;
+}

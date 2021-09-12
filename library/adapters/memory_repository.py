@@ -28,6 +28,20 @@ class MemoryRepository(AbstractRepository):
     def get_book(self, id: int):
         return next((book for book in self.__books if book.book_id == id), None)
 
+    def search_by_title(self, title: str):
+        matching =[]
+        for book in self.__books:
+            if book.title.lower() == title.lower():
+                matching.append(book)
+        return matching
+
+    def search_by_isbn(self, isbn: int):
+        matching = []
+        for book in self.__books:
+            if book.isbn == isbn:
+                matching.append(book)
+        return matching
+
 
 def load_books(data_path: Path, repo: MemoryRepository):
     books_filename = str(data_path / "comic_books_excerpt.json")
