@@ -1,15 +1,23 @@
+
+
+
 {% extends 'layout.html' %}
 {% block content %}
-<h1>new form</h1>
-<form action="{{handler_url}}" method="post">
-    <p>
-        {{form.csrf_token}}
-        {{form.person_id.label}} <br>
-        {{form.person_id}}
-    </p>
-    <p>
-        {{form.submit}}
-    </p>
+<title>Search for books</title>
+<h1>Search by Title</h1>
 
-</form>
+<div class="form-template">
+
+    <form action="{{handler_url}}" method="post">
+        <p>
+            {{form.csrf_token}}
+            {{form.book_id.label}} <br>
+            {{form.book_id}}
+        </p>
+        <p>
+            {{form.submit}}
+        </p>
+    </form>
+</div>
+
 {% endblock %}

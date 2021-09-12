@@ -205,3 +205,12 @@ div.book-description{
         width:40%;
         margin-left: 40px;
 
+
+
+/* Styling for search_book_title.html*/
+
+.form-template input{
+    height: 400px;
+
+
+}
