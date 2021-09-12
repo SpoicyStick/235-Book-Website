@@ -155,55 +155,54 @@ div.book-description{
 }
 
 
+.book-list-display {
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
 
 
-
-
-.container{
-    width: 70%;
-    margin: auto;
-    margin-bottom: 200px;
-    overflow: hidden;
-    background: skyblue;
-    margin-top: 20px;
 }
 
-.container ul{
-    padding: 0px;
-    margin: 0px;
+.book-display {
+    display: inline-block;
+    padding: 10px;
 }
 
+.book-display img {
+    padding-top: 10%;
 
-.container ul li{
-    float:left;
-    list-style: none;
-    width:230px;
-    height:344px;
-    background: red;
-    margin :50px 0px 150px 80px;
-    border:2px solid blue;
-    box-sizing: border-box;
 }
-.image_of_book:hover{
+
+.book-display img:hover{
     opacity: 0.8;
 }
+.book-list-display ul{
+    overflow:auto;
+    text-align:center;
 
-.container ul li .bottom{
+
+}
+.book-list-display li{
+    width: 300px;
+    height: 500px;
+    display: inline-block;
+    vertical-align: top;
+
+}
+
+.read-more button{
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
     width: 100%;
-    height: 50px;
-    text-align: left;
-    font-size: 15px;
-
+    padding: 10px;
 }
 
-.container ul li .bottom .button1{
-
-
-}
 
 @media screen and (max-width:1250px){
     .container ul li{
         width:40%;
         margin-left: 40px;
-
 }
+
