@@ -14,6 +14,8 @@
 <div class="book-list-display">
     {% if books == [] %}
         <p>No books found!</p>
+    {% elif books == none%}
+        <p>Invalid format!</p>
     {% else %}
        <ul>
             {% for book in books %}

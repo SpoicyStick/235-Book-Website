@@ -42,6 +42,8 @@ class MemoryRepository(AbstractRepository):
             for book in self.__books:
                 if book.isbn == isbn:
                     matching.append(book)
+        else:
+            return None;
         return matching
 
 

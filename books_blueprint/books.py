@@ -64,7 +64,10 @@ def search_book():
 
         )
     elif search_by == "ISBN":
-        book_isbn = int(search_value)
+        try:
+            book_isbn = int(search_value)
+        except:
+            book_isbn= None;
         return render_template(
             'list_of_book.html',
             form= form,
