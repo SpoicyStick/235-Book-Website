@@ -12,46 +12,50 @@
 
 
 <div class="book-list-display">
-    <ul>
-        {% for book in books %}
-        <div class="book-display">
-        <li>
-            <form method="get" action="/book_info" class="inline">
-                  <input type="hidden" name="book_id" value="{{ book.book_id }}">
-                  <button type="submit" name="submit_param" value="submit_value" class="link-button">
-                      <div class="image_of_book">
-                        <a href="/book_info"><img src={{book.image}} width="230" height="344"></a>
-                      </div>
-                  </button>
-            </form>
-            <p><b>{{ book.title }}</b><br>
-                    {% for author in book.authors %}
-                        {% if author != book.authors[-1] %}
-                            <small>{{ author.full_name }},</small>
-                        {% else %}
-                            <small>{{ author.full_name }}.</small>
-                        {% endif %}
-                    {% endfor %}<br>
-            </p>
-
-
-        </li>
-            <form method="get" action="/book_info" class="inline">
-                  <input type="hidden" name="book_id" value="{{ book.book_id }}">
-                  <div class="read-more">
-                      <button type="submit" value="submit_value" name="read-more-button">
-                          Read More
+    {% if books == [] %}
+        <p>No books found!</p>
+    {% elif books == none%}
+        <p>Invalid format!</p>
+    {% else %}
+       <ul>
+            {% for book in books %}
+            <div class="book-display">
+            <li>
+                <form method="get" action="/book_info" class="inline">
+                      <input type="hidden" name="book_id" value="{{ book.book_id }}">
+                      <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                          <div class="image_of_book">
+                            <a href="/book_info"><img src={{book.image}} width="230" height="344"></a>
+                          </div>
                       </button>
-                  </div>
-            </form>
+                </form>
+                <p><b>{{ book.title }}</b><br>
+                        {% for author in book.authors %}
+                            {% if author != book.authors[-1] %}
+                                <small>{{ author.full_name }},</small>
+                            {% else %}
+                                <small>{{ author.full_name }}.</small>
+                            {% endif %}
+                        {% endfor %}<br>
+                </p>
 
-        </div>
-        {% endfor %}
-    </ul>
 
-</div>
+            </li>
+                <form method="get" action="/book_info" class="inline">
+                      <input type="hidden" name="book_id" value="{{ book.book_id }}">
+                      <div class="read-more">
+                          <button type="submit" value="submit_value" name="read-more-button">
+                              Read More
+                          </button>
+                      </div>
+                </form>
+            </div>
+            {% endfor %}
+        </ul>
 
+    </div>
 
+    {% endif %}
 
 </body>
 
