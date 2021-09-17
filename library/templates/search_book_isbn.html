@@ -1,20 +1,10 @@
-{% extends 'layout.html' %}
-{% block content %}
 
-<title>Search Book</title>
-<div class="search-form">
-    <h1>Search by ISBN</h1>
-    <form action="{{handler_url}}" method="post">
-        <p>
-            {{form.csrf_token}}
-            {{form.book_isbn.label}} <br>
-            {{form.book_isbn}}
-        </p>
-        <p>
-            {{form.submit}}
-        </p>
+<div class="search-bar">
+    <form method="get" action="/search_book" class="search-form">
+        {{form.csrf_token}}
+        <div class="drop-down">{{form.search_by}}</div>
+        <div class="search-input">{{form.search_value}}</div>
+        <div class="search-button">{{form.submit}}</div>
 
     </form>
 </div>
-
-{% endblock %}

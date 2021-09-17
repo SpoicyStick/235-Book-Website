@@ -32,13 +32,14 @@
   overflow: hidden;
   background-color: #333;
   width: 100%;
+
 }
 
 #navbar a {
   float: left;
   display: block;
   color: #f2f2f2;
-  padding: 15px 10px 5px 10px;
+  padding: 17px 10px 5px 10px;
   margin-top: auto;
   text-decoration: none;
   font-size: 20px;
@@ -68,38 +69,38 @@
 }
 
 .search-bar {
-    display: inline-block;
     justify-content: flex-start;
-    width: 45%;
-    float: left;
+    width: 65%;
+    height: 100%;
+    margin-right: 25%;
+    margin-left: 25%;
+    padding-top: 4px;
+}
+.search-input{
+    width: 30%;
+    display: inline-block;
+}
+.search-input input{
 
 }
+.drop-down{
+    display: inline-block;
 
-.search-form {
-    width: 100%;
 }
-.drop-down {
-    float: left;
-    width: auto;
-}
-
 .drop-down select{
-    padding: 10%;
+    background-color: green;
     text-align: center;
-    width: 150px;
     background-color: #333;
     color: white;
     outline: none;
     border: none;
     font-size: 20px;
+}
 
+.search-button {
+    display: inline-block;
 }
-form.search-form input{
-    width: 40%;
-    float: left;
-    height: 50px;
-}
-.search-form button{
+.search-button input{
     text-align: center;
     color: white;
     height: 50px;

@@ -30,16 +30,18 @@ class MemoryRepository(AbstractRepository):
 
     def search_by_title(self, title: str):
         matching =[]
-        for book in self.__books:
-            if book.title.lower() == title.lower():
-                matching.append(book)
+        if isinstance(title, str):
+            for book in self.__books:
+                if book.title.lower() == title.lower():
+                    matching.append(book)
         return matching
 
     def search_by_isbn(self, isbn: int):
         matching = []
-        for book in self.__books:
-            if book.isbn == isbn:
-                matching.append(book)
+        if isinstance(isbn, int):
+            for book in self.__books:
+                if book.isbn == isbn:
+                    matching.append(book)
         return matching
 
 
