@@ -63,6 +63,33 @@ def search_book():
             list_url=url_for('books_bp.list_book'),
 
         )
+    elif search_by == "AUTHOR":
+        book_author = str(search_value)
+        return render_template(
+            'list_of_book.html',
+            form = form,
+            books= repo.repo_instance.search_by_author(book_author),
+            home_url=url_for('books_bp.home'),
+            list_url=url_for('books_bp.list_book'),
+        )
+    elif search_by == "PUBLISHER":
+        try:
+            book_publisher = int(search_value)
+        except:
+            return render_template(
+                'list_of_book.html',
+                form = form,
+                books= repo.repo_instance.search_by_publisher(str(search_value)),
+                home_url=url_for('books_bp.home'),
+                list_url=url_for('books_bp.list_book'),
+            )
+        return render_template(
+            'list_of_book.html',
+            form=form,
+            books=None,
+            home_url=url_for('books_bp.home'),
+            list_url=url_for('books_bp.list_book'),
+        )
     elif search_by == "ISBN":
         try:
             book_isbn = int(search_value)
@@ -76,7 +103,29 @@ def search_book():
             list_url=url_for('books_bp.list_book'),
 
         )
-    return "asd"
+    else:
+        try:
+            book_release_year = int(search_value)
+        except:
+            book_release_year= None;
+        if isinstance(book_release_year, int) and book_release_year >= 0:
+            return render_template(
+            'list_of_book.html',
+            form= form,
+            books= repo.repo_instance.search_by_release_year(book_release_year),
+            home_url=url_for('books_bp.home'),
+            list_url=url_for('books_bp.list_book'),
+            )
+        else:
+            return render_template(
+            'list_of_book.html',
+                form= form,
+                books= None,
+                home_url=url_for('books_bp.home'),
+                list_url=url_for('books_bp.list_book'),
+            )
+
+
 
 
 class TitleSearchForm(FlaskForm):
@@ -89,6 +138,6 @@ class ISBNSearchForm(FlaskForm):
 
 
 class BookSearch(FlaskForm):
-    search_by = SelectField('Search by', choices=[("TITLE", "Title"), ("ISBN", "ISBN")], default= ("TITLE", "Title"))
+    search_by = SelectField('Search by', choices=[("TITLE", "Title"), ("ISBN", "ISBN"), ("AUTHOR", "Author"), ("RELEASE", "Release year"), ("PUBLISHER", "Publisher")], default= ("TITLE", "Title"))
     search_value= StringField('Search value', [DataRequired()],  render_kw={"placeholder": "\U0001F50E\uFE0E" + "Search.."})
     submit = SubmitField('Find')

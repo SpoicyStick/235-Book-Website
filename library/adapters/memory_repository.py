@@ -46,6 +46,31 @@ class MemoryRepository(AbstractRepository):
             return None;
         return matching
 
+    def search_by_author(self, author_name: str):
+        matching=[]
+        if isinstance(author_name, str):
+            for book in self.__books:
+                for author in book.authors:
+                    if author.full_name.lower() == author_name.lower():
+                        matching.append(book)
+        return matching
+
+    def search_by_release_year(self, release_year):
+        matching=[]
+        if isinstance(release_year, int):
+            for book in self.__books:
+                if book.release_year == release_year:
+                    matching.append(book)
+        return matching
+
+    def search_by_publisher(self, publisher_name):
+        matching=[]
+        if isinstance(publisher_name, str):
+            for book in self.__books:
+                if book.publisher.name.lower() == publisher_name.lower():
+                    matching.append(book)
+        return matching
+
 
 def load_books(data_path: Path, repo: MemoryRepository):
     books_filename = str(data_path / "comic_books_excerpt.json")
