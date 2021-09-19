@@ -26,10 +26,19 @@ def home():
 @books_blueprint.route('/book')
 def list_book():
     form = BookSearch()
+
+    clicked_page_number = str(request.args.get('clicked_page_number'))
+    if clicked_page_number == 'None':
+        clicked_page_number = '1'
+
+
+
     return render_template(
         'list_of_book.html',
+        page_number = len(repo.repo_instance.get_page())+1,
         form = form,
-        books = repo.repo_instance,
+        clicked_pg= int(clicked_page_number),
+        books = (repo.repo_instance.get_page())[str(clicked_page_number)],
         home_url = url_for('books_bp.home'),
         list_url = url_for('books_bp.list_book'),
         book_url=url_for('books_bp.book_info'),
