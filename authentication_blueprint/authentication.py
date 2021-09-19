@@ -7,10 +7,10 @@ from wtforms.validators import DataRequired, Length, ValidationError
 from password_validator import PasswordValidator
 
 from functools import wraps
+import authentication_blueprint.services as services
+import library.adapters.repository as repo
+"""import covid.utilities.utilities as utilities"""
 
-import covid.utilities.utilities as utilities
-import covid.authentication.services as services
-import covid.adapters.repository as repo
 
 # Configure Blueprint.
 authentication_blueprint = Blueprint(
@@ -40,8 +40,6 @@ def register():
         form=form,
         user_name_error_message=user_name_not_unique,
         handler_url=url_for('authentication_bp.register'),
-        selected_articles=utilities.get_selected_articles(),
-        tag_urls=utilities.get_tags_and_urls()
     )
 
 
@@ -63,7 +61,7 @@ def login():
             # Initialise session and redirect the user to the home page.
             session.clear()
             session['user_name'] = user['user_name']
-            return redirect(url_for('home_bp.home'))
+            return redirect(url_for('books_bp.home'))
 
         except services.UnknownUserException:
             # User name not known to the system, set a suitable error message.
@@ -79,9 +77,8 @@ def login():
         title='Login',
         user_name_error_message=user_name_not_recognised,
         password_error_message=password_does_not_match_user_name,
-        form=form,
-        selected_articles=utilities.get_selected_articles(),
-        tag_urls=utilities.get_tags_and_urls()
+        form=form
+
     )
 
 
@@ -118,7 +115,17 @@ class PasswordValid:
             raise ValidationError(self.message)
 
 class RegistrationForm(FlaskForm):
-    pass
+    user_name = StringField('Username', [
+        DataRequired(message='Your user name is required'),
+        Length(min=3, message='Your user name is too short')])
+    password = PasswordField('Password', [
+        DataRequired(message='Your password is required'),
+        PasswordValid()])
+    submit = SubmitField('Register')
 
 class LoginForm(FlaskForm):
-    pass
+    user_name = StringField('Username', [
+        DataRequired()])
+    password = PasswordField('Password', [
+        DataRequired()])
+    submit = SubmitField('Login')

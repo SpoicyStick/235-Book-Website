@@ -16,6 +16,11 @@ def create_app():
     populate(data_path, repo.repo_instance)
 
     with app.app_context():
+
         from books_blueprint import books
         app.register_blueprint(books.books_blueprint)
+
+        from authentication_blueprint import authentication
+        app.register_blueprint(authentication.authentication_blueprint)
+
     return app

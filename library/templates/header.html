@@ -129,14 +129,24 @@
 </div>
 
 <div id="navbar">
-    <a href="{{ home_url }}">Home</a>
-    <a href="{{ list_url }}">List of Books</a>
+    <div class="navigation">
+        <a href="{{ url_for('books_bp.home') }}">Home</a>
+        <a href="{{ url_for('books_bp.list_book') }}">List of Books</a>
+        <a href="{{ url_for('authentication_bp.login') }}">Register</a>
+    </div>
+
     {% include 'search_book.html' %}
 
+    <div class="register-login">
+        <form  action="{{url_for('authentication_bp.login')}}">
+            <button style="width:auto;">Login</button>
+        </form>
 
 
-
+    </div>
 </div>
+
+
 
 <script>
   window.onscroll = function() {myFunction()};
@@ -154,37 +164,6 @@
 </script>
 
 
-<body>
-
-  <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
-
-  <div id="id01" class="modal">
-
-    <form class="modal-content animate" action="/action_page.php" method="post">
-      <div class="imgcontainer">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <img src="{{ url_for('static', filename='images/ogSUSu.png') }}" alt="avatar" class="avatar">
-      </div>
-
-      <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
-
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-
-        <button type="submit">Login</button>
-        <label>
-          <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label>
-      </div>
-
-      <div class="container" style="background-color:#f1f1f1">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <span class="psw">Forgot <a href="#">password?</a></span>
-      </div>
-    </form>
-  </div>
 
   <script>
   // Get the modal
@@ -197,5 +176,3 @@
       }
   }
   </script>
-
-</body>
