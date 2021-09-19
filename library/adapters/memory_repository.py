@@ -13,6 +13,7 @@ class MemoryRepository(AbstractRepository):
     def __init__(self):
         self.__books = list()
         self.__users = list()
+        self.__pages = dict()
 
     def __iter__(self):
         self._current = 0
@@ -24,6 +25,20 @@ class MemoryRepository(AbstractRepository):
         else:
             self._current += 1
             return self.__books[self._current - 1]
+
+    def get_page(self):
+        key = 0
+
+        for num in self.__books:
+            if self.__books.index(num) % 5 == 0:
+
+                key += 1
+                self.__pages[str(key)] = []
+                self.__pages[str(key)].append(num)
+            else:
+                self.__pages[str(key)].append(num)
+        return(self.__pages)
+
 
     def add_book(self, book: Book):
         self.__books.append(book)
