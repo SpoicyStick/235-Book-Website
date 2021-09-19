@@ -30,7 +30,7 @@ class MemoryRepository(AbstractRepository):
         key = 0
 
         for num in self.__books:
-            if self.__books.index(num) % 5 == 0:
+            if self.__books.index(num) % 10 == 0:
 
                 key += 1
                 self.__pages[str(key)] = []
