@@ -95,15 +95,6 @@
     <div class="pagination">
         <div class="pagebutton">
 
-            {% if  clicked_pg > 1 %}
-                <form method="get" action="/book" class="inline">
-                    <input type="hidden" name="clicked_page_number" value="{{clicked_pg-1}}">
-                    <input type="submit" value="&laquo">
-                </form>
-
-            {% endif %}
-
-
             {% for i in range(1, page_number) %}
                 <form method="get" action="/book" class="inline">
                     <input type="hidden" name="clicked_page_number" value="{{i}}">
@@ -111,12 +102,7 @@
                 </form>
             {% endfor %}
 
-            {% if  clicked_pg < (page_number-1) %}
-                <form method="get" action="/book" class="inline">
-                    <input type="hidden" name="clicked_page_number" value="{{clicked_pg+1}}">
-                    <input type="submit" value="&raquo">
-                </form>
-            {% endif %}
+
         </div>
 
     </div>

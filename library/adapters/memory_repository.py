@@ -59,8 +59,6 @@ class MemoryRepository(AbstractRepository):
             for book in sorted(self.__books, key=lambda x: -1 if x.isbn is None else x.isbn):
                 if book.isbn == isbn:
                     matching.append(book)
-
-
         else:
             return None
         return matching
@@ -78,7 +76,7 @@ class MemoryRepository(AbstractRepository):
     def search_by_release_year(self, release_year):
         matching=[]
         if isinstance(release_year, int):
-            for book in sorted(self.__books, key=lambda x: x.release_year):
+            for book in sorted(self.__books, key=lambda x: -1 if x.release_year is None else x.release_year):
                 if book.release_year == release_year:
                     matching.append(book)
         return matching
