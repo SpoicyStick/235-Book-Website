@@ -27,3 +27,12 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_book(self, book) -> Book:
         raise NotImplementedError
+
+
+    def add_user(self, user: User):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_user(self, user_name) -> User:
+
+        raise NotImplementedError

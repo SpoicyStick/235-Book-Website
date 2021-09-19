@@ -5,6 +5,40 @@
 <head>
     <title>List of Books</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+    <style>
+    .pagination {
+      display: inline-block;
+      width:100%;
+
+    }
+
+    .pagination input {
+      color: black;
+      padding: 8px 16px;
+      text-decoration: none;
+      transition: background-color .3s;
+      background-color: white;
+      color: black;
+      font-size: 125%;
+      border: none;
+    }
+
+    .pagination input:hover {
+      background-color: black;
+      color: white;
+    }
+
+
+    .pagination input:hover:not(.active) {background-color: #ddd;}
+
+    .pagebutton {
+      display: table;
+      margin: 0 auto;
+      text-decoration: none;
+    }
+
+
+    </style>
 </head>
 
 
@@ -56,6 +90,36 @@
     </div>
 
     {% endif %}
+
+
+    <div class="pagination">
+        <div class="pagebutton">
+
+            {% if  clicked_pg > 1 %}
+                <form method="get" action="/book" class="inline">
+                    <input type="hidden" name="clicked_page_number" value="{{clicked_pg-1}}">
+                    <input type="submit" value="&laquo">
+                </form>
+
+            {% endif %}
+
+
+            {% for i in range(1, page_number) %}
+                <form method="get" action="/book" class="inline">
+                    <input type="hidden" name="clicked_page_number" value="{{i}}">
+                    <input type="submit" value="{{i}}">
+                </form>
+            {% endfor %}
+
+            {% if  clicked_pg < (page_number-1) %}
+                <form method="get" action="/book" class="inline">
+                    <input type="hidden" name="clicked_page_number" value="{{clicked_pg+1}}">
+                    <input type="submit" value="&raquo">
+                </form>
+            {% endif %}
+        </div>
+
+    </div>
 
 </body>
 

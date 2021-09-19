@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from covid.adapters.repository import AbstractRepository
-from covid.domain.model import User
+from library.adapters.repository import AbstractRepository
+from library.domain.model import User
 
 
 class NameNotUniqueException(Exception):
