@@ -63,7 +63,10 @@ class AbstractRepository(abc.ABC):
 
     @abc.abstractmethod
     def add_review(self, review: Review):
-        raise NotImplementedError
+        if review.user is None or review not in review.user.reviews:
+            raise RepositoryException('Comment not correctly attached to a User')
+        if review.book is None or review not in review.book.reviews:
+            raise RepositoryException('Comment not correctly attached to an Article')
 
     @abc.abstractmethod
     def get_review(self):

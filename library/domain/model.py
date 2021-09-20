@@ -280,6 +280,7 @@ class Book:
 class Review:
 
     def __init__(self, book: Book, review_text: str, rating: int):
+        self.__user = None
         if isinstance(book, Book):
             self.__book = book
         else:
@@ -297,6 +298,8 @@ class Review:
 
         self.__timestamp = datetime.now()
 
+
+
     @property
     def book(self) -> Book:
         return self.__book
@@ -312,6 +315,15 @@ class Review:
     @property
     def timestamp(self) -> datetime:
         return self.__timestamp
+
+    @property
+    def user(self):
+        return self.__user
+
+    @user.setter
+    def user(self, user):
+        if isinstance(user, User):
+            self.__user = user
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
@@ -427,6 +439,8 @@ class BooksInventory:
 
 def make_review(review_text: str, user: User, book: Book, rating: int):
     review = Review(book, review_text, rating)
-    user.add_review(review)
+    review.user = user
+    if review.user != None:
+        user.add_review(review)
     book.add_review(review)
     return review
