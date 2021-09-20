@@ -96,7 +96,7 @@
         <div class="pagebutton">
 
             {% for i in range(1, page_number) %}
-                <form method="get" action="/book" class="inline">
+                <form method="get" action="/list_book" class="inline">
                     <input type="hidden" name="clicked_page_number" value="{{i}}">
                     <input type="submit" value="{{i}}">
                 </form>

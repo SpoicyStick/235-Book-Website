@@ -28,11 +28,35 @@ class AbstractRepository(abc.ABC):
     def get_book(self, book) -> Book:
         raise NotImplementedError
 
-
+    @abc.abstractmethod
     def add_user(self, user: User):
         raise NotImplementedError
 
     @abc.abstractmethod
     def get_user(self, user_name) -> User:
+        raise NotImplementedError
 
+    @abc.abstractmethod
+    def search_by_title(self, title: str):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def search_by_isbn(self, isbn: int):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def search_by_author(self, author_name: str):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def search_by_release_year(self, release_year: int):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def search_by_publisher(self, publisher: int):
+        raise NotImplementedError
+
+
+    @abc.abstractmethod
+    def get_page(self):
         raise NotImplementedError

@@ -3,27 +3,15 @@ from flask import Blueprint, render_template, url_for, request
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SubmitField, StringField, SelectField
 from wtforms.validators import DataRequired
+import books.services as services
 
 import library.adapters.repository as repo
-from library.domain.model import Book
 books_blueprint = Blueprint(
     'books_bp', __name__
 )
 
 
-@books_blueprint.route('/')
-def home():
-    form = BookSearch()
-    return render_template(
-        'home.html',
-        form= form,
-        home_url = url_for('books_bp.home'),
-        list_url = url_for('books_bp.list_book'),
-        book_url = url_for('books_bp.book_info'),
-
-    )
-
-@books_blueprint.route('/book')
+@books_blueprint.route('/list_book')
 def list_book():
     form = BookSearch()
     clicked_page_number = '1'
@@ -32,16 +20,14 @@ def list_book():
             clicked_page_number = str(request.args.get('clicked_page_number'))
     except:
         pass
-
     return render_template(
         'list_of_book.html',
-        page_number = len(repo.repo_instance.get_page())+1,
+        page_number = len(services.get_page(repo.repo_instance))+1,
         form = form,
-        books = (repo.repo_instance.get_page())[str(clicked_page_number)],
-        home_url = url_for('books_bp.home'),
+        books = (services.get_page(repo.repo_instance))[str(clicked_page_number)],
+        home_url = url_for('home_bp.home'),
         list_url = url_for('books_bp.list_book'),
         book_url=url_for('books_bp.book_info'),
-
     )
 @books_blueprint.route('/book_info', methods=['GET'])
 def book_info():
@@ -51,7 +37,7 @@ def book_info():
         'book_info.html',
         form = form,
         book = repo.repo_instance.get_book(book_id),
-        home_url = url_for('books_bp.home'),
+        home_url = url_for('home_bp.home'),
         list_url = url_for('books_bp.list_book'),
 
     )
@@ -67,8 +53,8 @@ def search_book():
             'list_of_book.html',
             form = form,
             page_number = 1,
-            books= repo.repo_instance.search_by_title(book_title),
-            home_url=url_for('books_bp.home'),
+            books= services.search_by_title(book_title, repo.repo_instance),
+            home_url=url_for('home_bp.home'),
             list_url=url_for('books_bp.list_book'),
 
         )
@@ -78,8 +64,8 @@ def search_book():
             'list_of_book.html',
             form = form,
             page_number=1,
-            books= repo.repo_instance.search_by_author(book_author),
-            home_url=url_for('books_bp.home'),
+            books= services.search_by_author(book_author, repo.repo_instance),
+            home_url=url_for('home_bp.home'),
             list_url=url_for('books_bp.list_book'),
         )
     elif search_by == "PUBLISHER":
@@ -90,8 +76,8 @@ def search_book():
                 'list_of_book.html',
                 form = form,
                 page_number=1,
-                books= repo.repo_instance.search_by_publisher(str(search_value)),
-                home_url=url_for('books_bp.home'),
+                books= services.search_by_publisher(str(search_value), repo.repo_instance),
+                home_url=url_for('home_bp.home'),
                 list_url=url_for('books_bp.list_book'),
             )
         return render_template(
@@ -99,7 +85,7 @@ def search_book():
             form=form,
             books=None,
             page_number=1,
-            home_url=url_for('books_bp.home'),
+            home_url=url_for('home_bp.home'),
             list_url=url_for('books_bp.list_book'),
         )
     elif search_by == "ISBN":
@@ -111,8 +97,8 @@ def search_book():
             'list_of_book.html',
             form= form,
             page_number=1,
-            books= repo.repo_instance.search_by_isbn(book_isbn),
-            home_url=url_for('books_bp.home'),
+            books= services.search_by_isbn(book_isbn, repo.repo_instance),
+            home_url=url_for('home_bp.home'),
             list_url=url_for('books_bp.list_book'),
 
         )
@@ -126,8 +112,8 @@ def search_book():
                 'list_of_book.html',
                 form= form,
                 page_number=1,
-                books= repo.repo_instance.search_by_release_year(book_release_year),
-                home_url=url_for('books_bp.home'),
+                books= services.search_by_release_year(book_release_year, repo.repo_instance),
+                home_url=url_for('home_bp.home'),
                 list_url=url_for('books_bp.list_book'),
             )
         else:
@@ -136,7 +122,7 @@ def search_book():
                 form= form,
                 page_number=1,
                 books= None,
-                home_url=url_for('books_bp.home'),
+                home_url=url_for('home_bp.home'),
                 list_url=url_for('books_bp.list_book'),
             )
 

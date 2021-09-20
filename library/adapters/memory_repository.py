@@ -28,10 +28,8 @@ class MemoryRepository(AbstractRepository):
 
     def get_page(self):
         key = 0
-
         for num in self.__books:
             if self.__books.index(num) % 10 == 0:
-
                 key += 1
                 self.__pages[str(key)] = []
                 self.__pages[str(key)].append(num)
@@ -39,9 +37,9 @@ class MemoryRepository(AbstractRepository):
                 self.__pages[str(key)].append(num)
         return(self.__pages)
 
-
     def add_book(self, book: Book):
         self.__books.append(book)
+
     def get_book(self, id: int):
         return next((book for book in self.__books if book.book_id == id), None)
 
