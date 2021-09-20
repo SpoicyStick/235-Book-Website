@@ -119,6 +119,7 @@ class Book:
         self.__num_pages = None
         self.__image = None
         self.__average_rating = None
+        self.__reviews = []
 
 
     @property
@@ -232,6 +233,16 @@ class Book:
             self.__authors.remove(author)
 
     @property
+    def reviews(self):
+        return self.__reviews
+
+    def add_review(self, review):
+        if isinstance(review, Review):
+            self.__reviews.append(review)
+
+
+
+    @property
     def ebook(self) -> bool:
         return self.__ebook
 
@@ -248,6 +259,8 @@ class Book:
     def num_pages(self, num_pages: int):
         if isinstance(num_pages, int) and num_pages >= 0:
             self.__num_pages = num_pages
+
+
 
     def __repr__(self):
         return f'<Book {self.title}, book id = {self.book_id}>'
@@ -356,7 +369,6 @@ class User:
 
     def add_review(self, review: Review):
         if isinstance(review, Review):
-            # Review objects are in practice always considered different due to their timestamp.
             self.__reviews.append(review)
 
     def __repr__(self):
@@ -411,3 +423,10 @@ class BooksInventory:
             if self.__books[book_id].title == book_title:
                 return self.__books[book_id]
         return None
+
+
+def make_review(review_text: str, user: User, book: Book, rating: int):
+    review = Review(book, review_text, rating)
+    user.add_review(review)
+    book.add_review(review)
+    return review

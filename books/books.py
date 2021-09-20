@@ -1,14 +1,17 @@
 import flask
-from flask import Blueprint, render_template, url_for, request
+from flask import Blueprint, request, render_template, redirect, url_for, session
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SubmitField, StringField, SelectField
-from wtforms.validators import DataRequired
-import books.services as services
+from wtforms import TextAreaField, HiddenField, IntegerField, SubmitField, StringField, SelectField
+from wtforms.validators import DataRequired, Length, ValidationError
+#from better_profanity import profanity
+from authentication.authentication import login_required
 
+import books.services as services
 import library.adapters.repository as repo
+
+
 books_blueprint = Blueprint(
-    'books_bp', __name__
-)
+    'books_bp', __name__)
 
 
 @books_blueprint.route('/list_book')
@@ -128,17 +131,56 @@ def search_book():
 
 
 
+@books_blueprint.route('/review', methods=['GET', 'POST'])
+@login_required
+def review_a_book():
+    user_name = session['user_name']
+    reviewForm = ReviewForm()
+    form = BookSearch()
+    if reviewForm.validate_on_submit():
+        print(reviewForm.book_id.data + "****************************************")
+        book_id = int(float(reviewForm.book_id.data))
+        rating = int(reviewForm.rating.data)
+        services.add_review(book_id, reviewForm.review.data, user_name, rating, repo.repo_instance)
+        book = services.get_book(book_id, repo.repo_instance)
+        return redirect(url_for('books_bp.list_book'))
 
-class TitleSearchForm(FlaskForm):
-    book_title = StringField('Book Title', [DataRequired()])
-    submit = SubmitField('Find')
+    if request.method == 'GET':
+        book_id = int(request.args.get('book_id'))
+        reviewForm.book_id.data = book_id
+    else:
+        book_id = int(reviewForm.book_id.data)
 
-class ISBNSearchForm(FlaskForm):
-    book_isbn = IntegerField('Book ISBN number', [DataRequired()])
-    submit = SubmitField('Find')
+    book = services.get_book(book_id, repo.repo_instance)
+    return render_template(
+        'review.html',
+        book=book,
+        reviewForm=reviewForm,
+        form=form,
+        handler_url=url_for('books_bp.review_a_book')
+    )
+
+
+class ReviewForm(FlaskForm):
+    review = TextAreaField('Review', [DataRequired(), Length(min=4, message='Your comment is too short')])#, ProfanityFree(message='Your comment must not contain profanity')
+    book_id = HiddenField("Book id")
+    rating = IntegerField("Rating")
+    submit = SubmitField('Submit')
+
+# class ProfanityFree:
+#     def __init__(self, message=None):
+#         if not message:
+#             message = u'Field must not contain profanity'
+#         self.message = message
+#
+#     def __call__(self, form, field):
+#         if profanity.contains_profanity(field.data):
+#             raise ValidationError(self.message)
+
 
 
 class BookSearch(FlaskForm):
     search_by = SelectField('Search by', choices=[("TITLE", "Title"), ("ISBN", "ISBN"), ("AUTHOR", "Author"), ("RELEASE", "Release year"), ("PUBLISHER", "Publisher")], default= ("TITLE", "Title"))
     search_value= StringField('Search value', [DataRequired()],  render_kw={"placeholder": "\U0001F50E\uFE0E" + "Search.."})
     submit = SubmitField('Find')
+

@@ -5,7 +5,7 @@ import csv
 
 from werkzeug.security import generate_password_hash
 from library.adapters.repository import AbstractRepository, RepositoryException
-from library.domain.model import Book, BooksInventory, User
+from library.domain.model import Book, BooksInventory, User, Review
 from library.adapters.jsondatareader import BooksJSONReader
 
 class MemoryRepository(AbstractRepository):
@@ -14,6 +14,7 @@ class MemoryRepository(AbstractRepository):
         self.__books = list()
         self.__users = list()
         self.__pages = dict()
+        self.__reviews = list()
 
     def __iter__(self):
         self._current = 0
@@ -66,7 +67,6 @@ class MemoryRepository(AbstractRepository):
         if isinstance(author_name, str):
             for book in self.__books:
                 for author in sorted(book.authors, key=lambda x: x.full_name.lower()):
-                    print(author)
                     if author.full_name.lower() == author_name.lower():
                         matching.append(book)
         return matching
@@ -92,6 +92,12 @@ class MemoryRepository(AbstractRepository):
 
     def get_user(self, user_name) -> User:
         return next((user for user in self.__users if user.user_name == user_name), None)
+
+    def get_review(self):
+        return self.__reviews
+
+    def add_review(self, review: Review):
+        self.__reviews.append(review)
 
 def load_books(data_path: Path, repo: MemoryRepository):
     books_filename = str(data_path / "comic_books_excerpt.json")
