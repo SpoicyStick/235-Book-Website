@@ -67,7 +67,6 @@ class MemoryRepository(AbstractRepository):
         if isinstance(author_name, str):
             for book in self.__books:
                 for author in sorted(book.authors, key=lambda x: x.full_name.lower()):
-                    print(author)
                     if author.full_name.lower() == author_name.lower():
                         matching.append(book)
         return matching
@@ -98,8 +97,6 @@ class MemoryRepository(AbstractRepository):
         return self.__reviews
 
     def add_review(self, review: Review):
-        # call parent class first, add_comment relies on implementation of code common to all derived classes
-        super().add_review(review)
         self.__reviews.append(review)
 
 def load_books(data_path: Path, repo: MemoryRepository):

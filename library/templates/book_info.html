@@ -44,6 +44,9 @@
         </div>
     </div>
 
+    {% for review in book.reviews %}
+        <p>{{ review.review_text }}</p>
+    {% endfor %}
 
 
     <form method="get" action="/review" class="inline">

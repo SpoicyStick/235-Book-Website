@@ -45,6 +45,7 @@ def search_by_publisher(publisher_name, repo: AbstractRepository):
 def add_review(book_id: int, review_text: str, user_name: str, rating: int, repo: AbstractRepository):
     # Check that the article exists.
     book = repo.get_book(book_id)
+
     if book is None:
         raise NonExistentArticleException
 
