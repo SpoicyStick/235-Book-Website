@@ -411,3 +411,9 @@ class BooksInventory:
             if self.__books[book_id].title == book_title:
                 return self.__books[book_id]
         return None
+
+def make_review(review_text: str, user: User, book: Book, rating: int):
+    review = Review(user, book, review_text, rating)
+    user.add_review(review)
+    book.add_review(review)
+    return review

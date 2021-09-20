@@ -46,6 +46,14 @@
 
 
 
+    <form method="get" action="/review" class="inline">
+        <input type="hidden" name="book_id" value="{{ book.book_id }}">
+        <button type="submit" name="submit_param" value="submit_value" class="link-button">
+            <input type="hidden" name="book_id" value="{{ book.book_id }}">
+            THIS IS A REVIEW LINK
+        </button>
+    </form>
+
 
 
 </body>

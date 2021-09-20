@@ -60,3 +60,11 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_page(self):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_review(self, review: Review):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_review(self):
+        raise NotImplementedError
