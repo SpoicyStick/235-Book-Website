@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired, Length, ValidationError
 from password_validator import PasswordValidator
 
 from functools import wraps
-import authentication_blueprint.services as services
+import authentication.services as services
 import library.adapters.repository as repo
 """import covid.utilities.utilities as utilities"""
 
@@ -61,7 +61,7 @@ def login():
             # Initialise session and redirect the user to the home page.
             session.clear()
             session['user_name'] = user['user_name']
-            return redirect(url_for('books_bp.home'))
+            return redirect(url_for('home_bp.home'))
 
         except services.UnknownUserException:
             # User name not known to the system, set a suitable error message.

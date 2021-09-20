@@ -3,8 +3,7 @@ import library.adapters.repository as repo
 from library.adapters.memory_repository import MemoryRepository, populate
 from pathlib import Path
 from flask import Flask, render_template
-# TODO: Access to the books should be implemented via the repository pattern and using blueprints, so this can not stay here!
-from library.domain.model import Book
+
 
 
 def create_app():
@@ -17,10 +16,12 @@ def create_app():
 
     with app.app_context():
 
-        from books_blueprint import books
+        from books import books
         app.register_blueprint(books.books_blueprint)
 
-        from authentication_blueprint import authentication
+        from authentication import authentication
         app.register_blueprint(authentication.authentication_blueprint)
 
+        from home import home
+        app.register_blueprint(home.home_blueprint)
     return app
