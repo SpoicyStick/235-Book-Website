@@ -2,6 +2,7 @@
 <main id="main">
     <div class="formwrapper">
         <h1 class="title">{{ title }}</h1>
+
         <form method="POST" action="{{ handler_url }}">
              {{ form.csrf_token }}
             <div class="form-field">{{ form.user_name.label }} {{ form.user_name }}
@@ -34,7 +35,9 @@
             </div>
             {{ form.submit }}
         </form>
+
     </div>
+
 </main>
 
 
