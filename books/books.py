@@ -141,7 +141,7 @@ def review_a_book():
         book_id = int(float(reviewForm.book_id.data))
         rating = int(reviewForm.rating.data)
         services.add_review(book_id, reviewForm.review.data, user_name, rating, repo.repo_instance)
-        book = services.get_book(book_id, repo.repo_instance)
+
         return redirect(url_for('books_bp.list_book'))
 
     if request.method == 'GET':
@@ -149,7 +149,6 @@ def review_a_book():
         reviewForm.book_id.data = book_id
     else:
         book_id = int(reviewForm.book_id.data)
-
     book = services.get_book(book_id, repo.repo_instance)
     return render_template(
         'review.html',
@@ -161,9 +160,9 @@ def review_a_book():
 
 
 class ReviewForm(FlaskForm):
-    review = TextAreaField('Review', [DataRequired(), Length(min=4, message='Your comment is too short')])#, ProfanityFree(message='Your comment must not contain profanity')
+    review = TextAreaField('Write a review for', [DataRequired(), Length(min=4, message='Your comment is too short')])#, ProfanityFree(message='Your comment must not contain profanity')
     book_id = HiddenField("Book id")
-    rating = IntegerField("Rating")
+    rating = SelectField("Rating",  choices=[("5", "⭐⭐⭐⭐⭐"), ("4", "⭐⭐⭐⭐"), ("3", "⭐⭐⭐"), ("2", "⭐⭐"), ("1", "⭐")])
     submit = SubmitField('Submit')
 
 # class ProfanityFree:

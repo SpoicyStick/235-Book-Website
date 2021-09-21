@@ -171,6 +171,55 @@ div.book-description{
     overflow: auto;
     vertical-align: middle
 }
+.review-display{
+  position: relative;
+  width: 30%;
+  margin: 5% 5% 5% 5%;
+  text-align: center;
+  border: 2px solid green;
+  border-radius: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+}
+
+.review-slides {
+  display: none;
+  padding: 80px;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.prev-review, .next-review {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -30px;
+  padding: 16px;
+  color: #888;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+.next-review {
+  position: absolute;
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.prev-review {
+  position: absolute;
+  left: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev-review:hover, .next-review:hover {
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+}
+q {font-style: italic;}
 
 
 /* Styling for list_of_book.html*/
@@ -303,3 +352,56 @@ div.book-description{
 .formwrapper ul li{
    list-style-type: none;
 }
+
+.write-review button{
+    margin-top: 30px;
+    width: 150px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-decoration: none;
+    color: black;
+    border: 2px solid green;
+    border-radius: 5px;
+    font-family: 'Barlow', sans-serif;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.write-review button:hover{
+    color: white;
+    background-color: green;
+
+}
+
+.review-box {
+    width: 70%;
+    height: 400px;
+
+}
+
+.review-box textarea{
+    width: 90%;
+    height: 50%;
+}
+
+.drop-down-rating select {
+    background-color: none;
+    border: none;
+    font-size: 20px;
+}
+
+.review-submit input{
+    width: 150px;
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border: 2px solid green;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.review-submit input:hover{
+    color: white;
+    background-color: green;
+}
+
+
