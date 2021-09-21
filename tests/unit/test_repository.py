@@ -5,7 +5,6 @@ import pytest
 
 from library.domain.model import Publisher, Author, Book, Review, User, BooksInventory, make_review
 from library.adapters.repository import RepositoryException
-from books.services import UnknownUserException
 
 def test_repository_can_add_a_user(in_memory_repo):
     user = User('Grace', '123456789')
