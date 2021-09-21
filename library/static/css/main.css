@@ -108,14 +108,17 @@
     float:right;
     margin-right: 10px;
 }
+.register-login button{
+    font-size: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
 
 .help a{
     float:right;
     color:green;
 }
-.register{
-    float: right;
-}
+
 /* Styling for book_info.html*/
 
 .book-info {
@@ -246,4 +249,54 @@ div.book-description{
 }
 .read-more-text{
     font-size: 15px;
+}
+
+/* Login and Register*/
+.formwrapper {
+    margin-top:5%;
+    margin-bottom: 5%;
+    margin-left:auto;
+    margin-right: auto;
+    vertical-align:center;
+    width: 45%;
+    border: 2px solid #73AD21;
+    border-radius: 25px;
+    padding: 5%;
+}
+.formwrapper img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+ }
+
+.login-register-submit input{
+    color: green;
+    float:left;
+    font-size: 20px;
+    background-color: white;
+    padding: 1px;
+    border: none;
+}
+
+.login-register-submit input:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.login-register-submit a{
+    color: green;
+    float:right;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+.login-register-submit a:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+.formwrapper ul li{
+   list-style-type: none;
 }
