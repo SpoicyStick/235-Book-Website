@@ -2,7 +2,7 @@ from library.domain.model import Book, BooksInventory, User, Author, Publisher
 from library.adapters.repository import AbstractRepository
 from library.domain.model import make_review, Review
 
-class NonExistentArticleException(Exception):
+class NonExistentBookException(Exception):
     pass
 
 
@@ -47,15 +47,13 @@ def add_review(book_id: int, review_text: str, user_name: str, rating: int, repo
     book = repo.get_book(book_id)
 
     if book is None:
-        raise NonExistentArticleException
+        raise NonExistentBookException
 
     user = repo.get_user(user_name)
     if user is None:
         raise UnknownUserException
 
-    # Create comment.
     review = make_review(review_text, user, book, rating)
 
-    # Update the repository.
     repo.add_review(review)
 

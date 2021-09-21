@@ -138,7 +138,6 @@ def review_a_book():
     reviewForm = ReviewForm()
     form = BookSearch()
     if reviewForm.validate_on_submit():
-        print(reviewForm.book_id.data + "****************************************")
         book_id = int(float(reviewForm.book_id.data))
         rating = int(reviewForm.rating.data)
         services.add_review(book_id, reviewForm.review.data, user_name, rating, repo.repo_instance)

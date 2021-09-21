@@ -97,6 +97,7 @@ class MemoryRepository(AbstractRepository):
         return self.__reviews
 
     def add_review(self, review: Review):
+        super().add_review(review)
         self.__reviews.append(review)
 
 def load_books(data_path: Path, repo: MemoryRepository):
