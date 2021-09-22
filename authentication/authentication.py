@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, session, request
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length, ValidationError
 
 from password_validator import PasswordValidator
@@ -19,14 +19,18 @@ authentication_blueprint = Blueprint(
 
 @authentication_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegistrationForm()
+    formAuthentication = RegistrationForm()
+    form = BookSearch()
     user_name_not_unique = None
-
-    if form.validate_on_submit():
+    if (session.get('logged_in') == True):
+        user_name = (session.get('user_name'))
+    else:
+        user_name = None
+    if formAuthentication.validate_on_submit():
         # Successful POST, i.e. the user name and password have passed validation checking.
         # Use the service layer to attempt to add the new user.
         try:
-            services.add_user(form.user_name.data, form.password.data, repo.repo_instance)
+            services.add_user(formAuthentication.user_name.data, formAuthentication.password.data, repo.repo_instance)
 
             # All is well, redirect the user to the login page.
             return redirect(url_for('authentication_bp.login'))
@@ -37,30 +41,38 @@ def register():
     return render_template(
         'authentication/credentials.html',
         title='Register',
-        form=form,
+        formAuthentication=formAuthentication,
+        form = form,
+        user_name=user_name,
         user_name_error_message=user_name_not_unique,
-        handler_url=url_for('authentication_bp.register'),
+        handler_url=url_for('authentication_bp.register')
     )
 
 
 @authentication_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
+    formAuthentication = LoginForm()
+    form = BookSearch()
+    if (session.get('logged_in') == True):
+        user_name = (session.get('user_name'))
+    else:
+        user_name = None
     user_name_not_recognised = None
     password_does_not_match_user_name = None
 
-    if form.validate_on_submit():
+    if formAuthentication.validate_on_submit():
         # Successful POST, i.e. the user name and password have passed validation checking.
         # Use the service layer to lookup the user.
         try:
-            user = services.get_user(form.user_name.data, repo.repo_instance)
+            user = services.get_user(formAuthentication.user_name.data, repo.repo_instance)
 
             # Authenticate user.
-            services.authenticate_user(user['user_name'], form.password.data, repo.repo_instance)
+            services.authenticate_user(user['user_name'], formAuthentication.password.data, repo.repo_instance)
 
             # Initialise session and redirect the user to the home page.
             session.clear()
             session['user_name'] = user['user_name']
+            session['logged_in'] = True
             return redirect(url_for('home_bp.home'))
 
         except services.UnknownUserException:
@@ -75,16 +87,18 @@ def login():
     return render_template(
         'authentication/credentials.html',
         title='Login',
+        form = form,
+        user_name=user_name,
         user_name_error_message=user_name_not_recognised,
         password_error_message=password_does_not_match_user_name,
-        form=form
-
+        formAuthentication=formAuthentication
     )
 
 
 @authentication_blueprint.route('/logout')
 def logout():
     session.clear()
+    session['logged_in']=False
     return redirect(url_for('home_bp.home'))
 
 
@@ -129,3 +143,11 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', [
         DataRequired()])
     submit = SubmitField('Login')
+
+class BookSearch(FlaskForm):
+    search_by = SelectField('Search by', choices=[("TITLE", "Title"), ("ISBN", "ISBN"), ("AUTHOR", "Author"),
+                                                  ("RELEASE", "Release year"), ("PUBLISHER", "Publisher")],
+                            default=("TITLE", "Title"))
+    search_value = StringField('Search value', [DataRequired()],
+                               render_kw={"placeholder": "\U0001F50E\uFE0E" + "Search.."})
+    submit = SubmitField('Find')

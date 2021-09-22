@@ -66,7 +66,7 @@ def test_login_required_to_comment(client):
     assert response.headers['Location'] == 'http://localhost/authentication/login'
 
 
-def test_comment(client, auth):
+def test_review(client, auth):
     # Login a user.
     auth.login()
 

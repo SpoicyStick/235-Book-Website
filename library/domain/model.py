@@ -120,6 +120,7 @@ class Book:
         self.__image = None
         self.__average_rating = None
         self.__reviews = []
+        self.__similar_book = []
 
 
     @property
@@ -178,7 +179,13 @@ class Book:
         else:
             raise ValueError
 
+    @property
+    def similar_book(self) -> int:
+        return self.__similar_book
 
+    def add_similar_book(self, book_id:int):
+        if isinstance(book_id, int):
+            self.__similar_book.append(book_id)
 
     @property
     def release_year(self) -> int:

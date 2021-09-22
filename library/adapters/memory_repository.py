@@ -100,6 +100,14 @@ class MemoryRepository(AbstractRepository):
         super().add_review(review)
         self.__reviews.append(review)
 
+    def get_similar_books(self, book: Book):
+        matching = []
+        for book_id in book.similar_book:
+            book= self.get_book(book_id)
+            if book!=None:
+                matching.append(book)
+        return matching
+
 def load_books(data_path: Path, repo: MemoryRepository):
     books_filename = str(data_path / "comic_books_excerpt.json")
     author_filename = str(data_path / "book_authors_excerpt.json")

@@ -7,7 +7,7 @@
 <body>
     <div class="book-info">
         <div class="book-info-left">
-            <img src={{book.image}}>
+            <img src={{book.image}} alt="{{book.title}}" title="{{book.title}}">
         </div>
 
         <div class="book-info-right">
@@ -35,6 +35,7 @@
                 <div class="rating-star" style="width: calc(20% * {{ book.average_rating }})">
                     <img src="{{ url_for('static', filename='images/stars.png') }}" alt="{{ book.average_rating }}" title="{{ book.average_rating }}">
                 </div>
+
             </div>
             <div class="book-description">
                 <br>
@@ -46,10 +47,14 @@
 
                         <form method="get" action="/review" class="write-review">
                             <input type="hidden" name="book_id" value="{{ book.book_id }}">
+                            <br>
                             <button type="submit" name="submit_param" value="submit_value" class="link-button">
                                 <input type="hidden" name="book" value="{{ book }}">
                                 Write Review
                             </button>
+                            <br>
+                            <br>
+
                         </form>
                 </div>
             </div>
@@ -58,16 +63,43 @@
         </div>
     </div>
 
-    <div class="review-display">
-        <h2>Reviews</h2>
-        {% for review in book.reviews %}
-            <div class="review-slides">
-                <q>{{ review.review_text }}</q>
-                <br><strong>- {{review.user.user_name}}</strong>
-            </div>
-        {% endfor %}
-        <a class="prev-review" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next-review" onclick="plusSlides(1)">&#10095;</a>
+
+
+    <div class="book-info-bottom">
+        <div class="review-display">
+            <h2>Reviews</h2>
+            {% for review in book.reviews %}
+                <div class="review-slides">
+                    <q>{{ review.review_text }}</q>
+                    <br><strong>- {{review.user.user_name}}</strong>
+                </div>
+            {% endfor %}
+            <a class="prev-review" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next-review" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+
+
+        <div class="similar-books">
+            <h2>Similar Books</h2>
+            <br>
+            <br>
+            {% for book in similar_books %}
+                <div class="similar-book-info">
+                    <form method="get" action="/book_info">
+                      <input type="hidden" name="book_id" value="{{ book.book_id }}">
+                      <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                          <a href="/book_info"><img src={{book.image}} alt="{{book.title}}" title="{{book.title}}">
+                            <div style="  display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;"><p>{{book.title}}</p></div>
+                          </a>
+                      </button>
+                    </form>
+
+                    </a>
+                </div>
+
+            {% endfor %}
+
+        </div>
     </div>
 
 

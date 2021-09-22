@@ -57,3 +57,6 @@ def add_review(book_id: int, review_text: str, user_name: str, rating: int, repo
 
     repo.add_review(review)
 
+def get_similar_books(book: Book, repo: AbstractRepository):
+    similar_books = repo.get_similar_books(book)
+    return similar_books
