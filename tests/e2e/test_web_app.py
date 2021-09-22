@@ -59,11 +59,6 @@ def test_logout(client, auth):
         assert 'user_id' not in session
 
 
-def test_index(client):
-    # Check that we can retrieve the home page.
-    response = client.get('/')
-    assert response.status_code == 200
-    assert b'QAZFGBHNUJIHNM' in response.data
 
 
 def test_login_required_to_comment(client):
@@ -71,7 +66,7 @@ def test_login_required_to_comment(client):
     assert response.headers['Location'] == 'http://localhost/authentication/login'
 
 
-def test_comment(client, auth):
+def test_review(client, auth):
     # Login a user.
     auth.login()
 

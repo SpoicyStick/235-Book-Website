@@ -3,6 +3,9 @@ import library.adapters.repository as repo
 from library.adapters.memory_repository import MemoryRepository, populate
 from pathlib import Path
 from flask import Flask, render_template
+from authentication.authentication import logout
+
+
 
 
 
@@ -10,6 +13,7 @@ def create_app(test_config=None):
     app = Flask(__name__)
 
     app.config.from_object('config.Config')
+
 
     data_path = Path('library') / 'adapters' / 'data'
     if test_config is not None:

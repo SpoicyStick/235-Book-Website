@@ -40,11 +40,17 @@
     </div>
 
     {% include 'search_book.html' %}
+    <div class="register-login-username">
+        {% if user_name != none%}
+            <div class="user_name">Welcome {{user_name}}!</div>
+        {% endif %}
 
-    <div class="register-login">
-        <form  action="{{url_for('authentication_bp.login')}}">
-            <button style="width:auto;">Login</button>
-        </form>
+        <div class="register-login">
+            <form  action="{{url_for('authentication_bp.login')}}">
+                <button style="width:auto;">Login</button>
+            </form>
+    </div>
+
 
 
     </div>
@@ -54,21 +60,6 @@
   <p>(spacing)</p>
 </div>
 
-
-<!--<script>-->
-<!--  window.onscroll = function() {myFunction()};-->
-
-<!--  var navbar = document.getElementById("navbar");-->
-<!--  var sticky = navbar.offsetTop;-->
-
-<!--  function myFunction() {-->
-<!--    if (window.pageYOffset >= sticky) {-->
-<!--      navbar.classList.add("sticky")-->
-<!--    } else {-->
-<!--      navbar.classList.remove("sticky");-->
-<!--    }-->
-<!--  }-->
-<!--</script>-->
 
 
 

@@ -3,7 +3,7 @@
 
 
 <head>
-    <title>List of Books</title>
+    <title>📚 List of Books</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
     <style>
     .pagination {
@@ -57,9 +57,21 @@
 
 <div class="book-list-display">
     {% if books == [] %}
-        <p>No books found!</p>
+        <main id="main">
+            <div class="formwrapper">
+                <img src="{{ url_for('static', filename='images/ogSUSu-sad.png') }}">
+                <p style="text-align:center; padding-top:10px;">Sorry :(</p>
+                <p style="text-align:center">No books found!</p>
+            </div>
+        </main>
+
     {% elif books == none%}
-        <p>Invalid format!</p>
+            <main id="main">
+                <div class="formwrapper">
+                    <img src="{{ url_for('static', filename='images/ogSUSu-sad.png') }}">
+                    <p style="text-align:center; padding-top:10px;">Please enter a valid search value!</p>
+                </div>
+            </main>
     {% else %}
        <ul>
             {% for book in books %}

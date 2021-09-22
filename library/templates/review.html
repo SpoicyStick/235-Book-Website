@@ -1,17 +1,33 @@
 {% extends 'layout.html' %}
 {% block content %}
 <head>
-    <title>Review a Book</title>
+    <title> ✏ Review {{book.title}}</title>
 </head>
 
 <body>
-    <form method="POST" action="{{ handler_url }}">
-        {{ reviewForm.book_id }}
-        {{ reviewForm.csrf_token }}
-        {{ reviewForm.review.label }}
-        {{ reviewForm.review }}
-        {{ reviewForm.rating }}
-        {{ reviewForm.submit }}
-    </form>
+    <div class="book-info">
+        <div class="book-info-left">
+            <img src="{{book.image}}">
+        </div>
+        <div class="book-info-right">
+
+
+
+            <form method="POST" action="{{ handler_url }}">
+                {{ reviewForm.csrf_token }}
+                {{ reviewForm.book_id }}
+                <div class="review-box">
+                    <h2>{{ reviewForm.review.label }} {{book.title}}</h2>
+                    <br>
+                    {{ reviewForm.review }}
+                    <div class="drop-down-rating"><strong>{{ reviewForm.rating.label }}</strong>: {{ reviewForm.rating }}</div>
+                    <br>
+                    <div class="review-submit">{{ reviewForm.submit }}</div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
 </body>
 {% endblock %}

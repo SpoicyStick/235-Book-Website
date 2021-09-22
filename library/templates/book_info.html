@@ -2,12 +2,12 @@
 
 {% block content %}
 <head>
-    <title>{{ book.title }}</title>
+    <title>📖 {{ book.title }}</title>
 </head>
 <body>
     <div class="book-info">
         <div class="book-info-left">
-            <img src={{book.image}}>
+            <img src={{book.image}} alt="{{book.title}}" title="{{book.title}}">
         </div>
 
         <div class="book-info-right">
@@ -15,13 +15,13 @@
 
 
                 <h1>{{ book.title }}</h1>
-                    ISBN: {% if book.isbn != none %}
+                <strong>ISBN</strong>: {% if book.isbn != none %}
                                 {{book.isbn}}
                             {% else %}
                                 N/A
                             {% endif %}
 
-                    | Author:
+                | <strong>Author</strong>:
                             {% for author in book.authors %}
                                 {% if author != book.authors[-1] %}
                                     {{ author.full_name }},
@@ -35,29 +35,105 @@
                 <div class="rating-star" style="width: calc(20% * {{ book.average_rating }})">
                     <img src="{{ url_for('static', filename='images/stars.png') }}" alt="{{ book.average_rating }}" title="{{ book.average_rating }}">
                 </div>
+
             </div>
             <div class="book-description">
                 <br>
                 <h2>Description</h2>
                  <p>{{ book.description }}</p>
+                <div class="book-additional-info">
+                    <br>
+                    <strong>Pulisher</strong>: {{ book.publisher.name }} | <strong>Release Year</strong>: {{book.release_year}}
+
+                        <form method="get" action="/review" class="write-review">
+                            <input type="hidden" name="book_id" value="{{ book.book_id }}">
+                            <br>
+                            <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                                <input type="hidden" name="book" value="{{ book }}">
+                                Write Review
+                            </button>
+                            <br>
+                            <br>
+
+                        </form>
+                </div>
             </div>
+
+
         </div>
     </div>
 
-    {% for review in book.reviews %}
-        <p>{{ review.review_text }}</p>
-    {% endfor %}
 
 
-    <form method="get" action="/review" class="inline">
-        <input type="hidden" name="book_id" value="{{ book.book_id }}">
-        <button type="submit" name="submit_param" value="submit_value" class="link-button">
-            <input type="hidden" name="book_id" value="{{ book.book_id }}">
-            THIS IS A REVIEW LINK
-        </button>
-    </form>
+    <div class="book-info-bottom">
+        <div class="review-display">
+            <h2>Reviews</h2>
+            {% for review in book.reviews %}
+                <div class="review-slides">
+                    <q>{{ review.review_text }}</q>
+                    <br><strong>- {{review.user.user_name}}</strong>
+                </div>
+            {% endfor %}
+            <a class="prev-review" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next-review" onclick="plusSlides(1)">&#10095;</a>
+        </div>
 
 
+        <div class="similar-books">
+            <h2>Similar Books</h2>
+            <br>
+            <br>
+            {% for book in similar_books %}
+                <div class="similar-book-info">
+                    <form method="get" action="/book_info">
+                      <input type="hidden" name="book_id" value="{{ book.book_id }}">
+                      <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                          <a href="/book_info"><img src={{book.image}} alt="{{book.title}}" title="{{book.title}}">
+                            <div style="  display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;"><p>{{book.title}}</p></div>
+                          </a>
+                      </button>
+                    </form>
+
+                    </a>
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+            var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+          showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+          var i;
+          var slides = document.getElementsByClassName("review-slides");
+          var dots = document.getElementsByClassName("dot");
+          if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+              slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+              dots[i].className = dots[i].className.replace(" active", "");
+            }
+          slides[slideIndex-1].style.display = "block";
+          dots[slideIndex-1].className += " active";
+        }
+    </script>
 
 </body>
 
