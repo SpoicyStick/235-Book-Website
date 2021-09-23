@@ -4,23 +4,21 @@
 <head>
     <title>📖 {{ book.title }}</title>
 </head>
+
 <body>
+    <!--Basic book information-->
     <div class="book-info">
         <div class="book-info-left">
             <img src={{book.image}} alt="{{book.title}}" title="{{book.title}}">
         </div>
-
         <div class="book-info-right">
             <div class="basic-book-info">
-
-
                 <h1>{{ book.title }}</h1>
                 <strong>ISBN</strong>: {% if book.isbn != none %}
                                 {{book.isbn}}
                             {% else %}
                                 N/A
                             {% endif %}
-
                 | <strong>Author</strong>:
                             {% for author in book.authors %}
                                 {% if author != book.authors[-1] %}
@@ -31,11 +29,13 @@
                             {% endfor %}
             </div>
 
+            <!--Star Rating-->
             <div class="rating">
                 <div class="rating-star" style="width: calc(20% * {{ book.average_rating }})">
                     <img src="{{ url_for('static', filename='images/stars.png') }}" alt="{{ book.average_rating }}" title="{{ book.average_rating }}">
                 </div>
 
+            <!--Book description and info-->
             </div>
             <div class="book-description">
                 <br>
@@ -44,7 +44,11 @@
                 <div class="book-additional-info">
                     <br>
                     <strong>Pulisher</strong>: {{ book.publisher.name }} | <strong>Release Year</strong>: {{book.release_year}}
-
+                    {% if book.ebook==true %}
+                        <p style="padding-top: 10px;">Available as e-book!</p>
+                    {% else %}
+                    <p style="padding-top: 10px;">Unavailable as e-book</p>
+                    {% endif %}
                         <form method="get" action="/review" class="write-review">
                             <input type="hidden" name="book_id" value="{{ book.book_id }}">
                             <br>
@@ -54,31 +58,37 @@
                             </button>
                             <br>
                             <br>
-
                         </form>
                 </div>
             </div>
-
-
         </div>
     </div>
 
 
 
     <div class="book-info-bottom">
+        <!--Review slideshow-->
         <div class="review-display">
             <h2>Reviews</h2>
             {% for review in book.reviews %}
                 <div class="review-slides">
+                    <p style="padding-bottom: 20px;">
+                        {% for number in numbers['numbers'] %}
+                            {% if number< review.rating %}
+                                ⭐
+                            {% endif %}
+                        {% endfor %}
+                    </p>
                     <q>{{ review.review_text }}</q>
                     <br><strong>- {{review.user.user_name}}</strong>
+
                 </div>
             {% endfor %}
             <a class="prev-review" onclick="plusSlides(-1)">&#10094;</a>
             <a class="next-review" onclick="plusSlides(1)">&#10095;</a>
         </div>
 
-
+        <!--Similar book recommendations-->
         <div class="similar-books">
             <h2>Similar Books</h2>
             <br>
@@ -93,19 +103,14 @@
                           </a>
                       </button>
                     </form>
-
                     </a>
                 </div>
-
             {% endfor %}
-
         </div>
     </div>
 
 
-
-
-
+    <!--Javascript for review slideshow-->
     <script>
             var slideIndex = 1;
         showSlides(slideIndex);

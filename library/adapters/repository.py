@@ -71,3 +71,20 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_review(self):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def sort_books_by_title(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def sort_books_by_isbn(self):
+        raise NotImplementedError
+
+
+    @abc.abstractmethod
+    def sort_books_by_release_year(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def sort_books_by_publisher(self):
+        raise NotImplementedError

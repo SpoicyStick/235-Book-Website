@@ -207,7 +207,7 @@ div.book-description{
 
 .review-slides {
   display: none;
-  padding: 80px;
+  padding: 25px 80px 80px 80px;
   text-align: center;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -315,21 +315,52 @@ q {font-style: italic;}
 .book-list-display {
   margin-left: auto;
   margin-right: auto;
-  width: 95%;
+  width: 100%;
+}
+
+.book-list-parent{
+    background: white;
+}
+.sort {
+    height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 100px;
+    width: 40%;
+    margin: 30px auto 20px auto;
 
 
 }
+.sort a, .sort p{
+    padding: 0 10px;
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.sort a:hover{
+    color: #28bc84;
+    background: white;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+
 
 .book-display {
     display: inline-block;
-    padding: 10px;
+    padding: 10px 30px;
+    border: 1px solid #3ca47c;
+    border-radius: 25px;
+    margin: 40px;
+    background: white;
 }
+
 
 .book-display img {
     padding-top: 10%;
 
 }
-
 .book-display img:hover{
     opacity: 0.8;
 }
@@ -351,7 +382,7 @@ q {font-style: italic;}
     text-align: center;
     background-color: white;
     color: black;
-    border: 2px solid #28bc84;
+    border: 1px solid #28bc84;
     width: 100%;
     padding: 10px;
     transition-duration: 0.4s;

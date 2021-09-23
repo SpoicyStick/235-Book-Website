@@ -73,6 +73,15 @@
                 </div>
             </main>
     {% else %}
+    <div class="sort">
+        <p>Sort by:
+            <a href="/list_book_by_title">Title</a>
+            | <a href="/list_book_by_isbn">ISBN</a>
+            | <a href="/list_book_by_release_year">Release Year</a>
+            | <a href="/list_book_by_publisher">Publisher</a>
+         </p>
+    </div>
+    <div class="book-list-parent">
        <ul>
             {% for book in books %}
             <div class="book-display">
@@ -108,8 +117,8 @@
             </div>
             {% endfor %}
         </ul>
-
     </div>
+
 
     {% endif %}
 
