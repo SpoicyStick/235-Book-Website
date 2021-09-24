@@ -125,6 +125,9 @@ class MemoryRepository(AbstractRepository):
         self.__books = sorted(self.__books, key=lambda x: x.publisher.name.lower(), reverse = True)
         return self.__books
 
+    def get_all_books(self):
+        return self.__books
+
 def load_books(data_path: Path, repo: MemoryRepository):
     books_filename = str(data_path / "comic_books_excerpt.json")
     author_filename = str(data_path / "book_authors_excerpt.json")

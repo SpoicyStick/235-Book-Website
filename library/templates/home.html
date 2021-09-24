@@ -3,10 +3,10 @@
 <head>
 
 <title>🌽 ogSUSu Books</title>
-
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
 
 
@@ -18,98 +18,129 @@
   background-size: cover;
 }
 
-/* First image (Logo. Full height) */
+/* First parallax image */
 .bgimg-1 {
   background-image: url('static/images/ogSUSu-home.png');
   min-height: 873px;
 }
 
-/* Second image (Portfolio) */
+/* Second parallax image */
 .bgimg-2 {
   background-image: url('static/images/ogSUSu-home2.png');
-  min-height: 400px;
+  min-height: 500px;
 }
 
-/* Third image (Contact) */
-.bgimg-3 {
-  background-image: url('static/images/stars.png');
-  min-height: 400px;
-}
+
 
 .w3-wide {letter-spacing: 10px;}
 .w3-hover-opacity {cursor: pointer;}
 
-/* Turn off parallax scrolling for tablets and phones */
-@media only screen and (max-device-width: 1600px) {
-  .bgimg-1, .bgimg-2, .bgimg-3 {
-    background-attachment: scroll;
-    min-height: 400px;
-  }
+
+.home-rand-book-heading{
+    text-align:center;
+    padding-top:10px;
+}
+
+.home-rand-container{
+    height: 500px;
+
+}
+
+.home-rand-contents, .home-rand-title {
+    float: right;
+    align-self: center;
+    display: flex;
+    width: 80%;
+
+
+}
+.home-rand-description{
+    float: right;
+    align-self: center;
+    display: flex;
+    width: 80%;
+
+}
+.rand-home-description-contents{
+    float: left;
+    align-self: center;
+    display: flex;
+    width: 50%;
+    height:110px;
+    margin-left:40px;
+    overflow: hidden;
+
+
+}
+
+.home-rand-image{
+    float:left;
+    padding-left: 50px;
+}
+.home-rand-image img{
+    height: 350px;
+    width:250px;
 }
 </style>
 
 </head>
 <body>
 
-<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
-  <div class="w3-display-middle" style="white-space:nowrap; padding: 0;">
-    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">ogSUSu <span class="w3-hide-small">BOOKS</span> </span>
-  </div>
-</div>
+    <div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
+      <div class="w3-display-middle" style="white-space:nowrap;">
+        <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">ogSUSu <span class="w3-hide-small">BOOKS</span> </span>
+      </div>
+    </div>
 
 
 
-<div class="home-paragraph">
-    <h1>===============================TEXT HERE===============================</h1>
-    <p>Text</p>
-    <p>Text</p>
-    <p>Text</p>
-    <p>Text</p>
-    <p>Text</p>
-    <p>Text</p>
-    <p>Text</p>
-</div>
-
-<!-- Second Parallax Image with Portfolio Text -->
-<div class="bgimg-2 w3-display-container w3-opacity-min">
-  <div class="w3-display-middle">
-    <span class="w3-xxlarge w3-text-white w3-wide">PORTFOLIO</span>
-  </div>
-</div>
-
-
-
-        <div class="home-paragraph">
-                <h1>===============================TEXT HERE===============================</h1>
+    <div class="home-rand-container">
+        <div class="home-rand-book-heading">
+            <h1>🌽 "I'm Feeling Lucky!" 🌽</h1><br>
         </div>
+        <div class="home-rand-image">
+            <form method="get" action="/book_info" class="inline">
+                  <input type="hidden" name="book_id" value="{{ selected_book.book_id }}">
+                  <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                      <div class="image_of_book">
+                          <a href="/book_info"><img src={{selected_book.image}} ></a>
+                      </div>
+                  </button>
+            </form>
+        </div>
+        <div class="home-rand-right">
+            <div class="home-rand-title">
+                <h1>{{ selected_book.title }}</h1>
+            </div>
 
-<!-- Third Parallax Image with Portfolio Text -->
-<div class="bgimg-3 w3-display-container w3-opacity-min">
-  <div class="w3-display-middle">
-     <span class="w3-xxlarge w3-text-white w3-wide">CONTACT</span>
-  </div>
-</div>
+            <div class="home-rand-contents">
+
+                <br>
+                <strong>Author</strong>:
+                    {% for author in selected_book.authors %}
+                        {% if author != selected_book.authors[-1] %}
+                            {{ author.full_name }},
+                        {% else %}
+                            {{ author.full_name }}
+                        {% endif %}
+                    {% endfor %}
+            </div>
+            <div class="home-rand-description">
+                <br><h2>Description</h2><br>
+
+            </div>
+            <div class="rand-home-description-contents">
+                <br><p>{{ selected_book.description }}</p>
+            </div>
+        </div>
+    </div>
 
 
-
-
-
-
+    <div class="bgimg-2 w3-display-container w3-opacity-min">
+      <div class="w3-display-middle">
+        <span class="w3-xxlarge w3-text-white w3-wide">MADE BY GRACE & STEPHEN</span>
+      </div>
+    </div>
 </body>
-
-
-<!--<head>
-    <title>Home</title
-</head>
-<body>
-        <p>ogSUSu Books</p>
-        <p>ogSUSu Books</p>
-        <p>ogSUSu Books</p>
-        <p>ogSUSu Books</p>
-        <p>ogSUSu Books</p>
-        <p>ogSUSu Books</p>
-        <p>ogSUSu Books</p>
-        <p>ogSUSu Books</p>
-</body>-->
 
 {% endblock %}
