@@ -1,6 +1,4 @@
 from pathlib import Path
-from datetime import datetime
-from typing import List
 import csv
 
 from werkzeug.security import generate_password_hash

@@ -134,7 +134,7 @@ def test_can_get_similar_books(in_memory_repo):
 
 def test_service_can_sort_by_title(in_memory_repo):
     book = books_services.sort_books_by_title(in_memory_repo)
-    assert book[:2] == [books_services.get_book(13340336, in_memory_repo), books_services.get_book(2250580), in_memory_repo]
+    assert book[:2] == [books_services.get_book(13340336, in_memory_repo), books_services.get_book((2250580), in_memory_repo)]
 
 def test_service_can_sort_by_isbn(in_memory_repo):
     book = books_services.sort_books_by_isbn(in_memory_repo)

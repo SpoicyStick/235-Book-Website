@@ -1,6 +1,6 @@
-from library.domain.model import Book, BooksInventory, User, Author, Publisher
+from library.domain.model import Book
 from library.adapters.repository import AbstractRepository
-from library.domain.model import make_review, Review
+from library.domain.model import make_review
 
 class NonExistentBookException(Exception):
     pass

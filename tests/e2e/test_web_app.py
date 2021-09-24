@@ -136,3 +136,25 @@ def test_search_release_publisher(client, auth):
 
     response = client.get('/search_book?search_by=PUBLISHER&search_value=Dargaud&=Find&clicked_page_number=1')
     assert b'Cruelle' in response.data
+
+def test_pagnavigation_takes_user_to_correct_page(client, auth):
+    response =client.get('/list_book?clicked_page_number=3')
+    assert b'She Wolf #1' in response.data
+    response =client.get('/list_book?clicked_page_number=4')
+    assert b'Doctor Strange: The Oath' in response.data
+
+def test_sort_by_title(client):
+    resource = client.get('/list_book_by_title')
+    assert b'Cruelle' in resource.data
+
+def test_sort_by_isbn(client):
+    resource = client.get('/list_book_by_isbn')
+    assert b'Sherlock Holmes: Year One' in resource.data
+
+def test_sort_by_release_year(client):
+    resource = client.get('/list_book_by_release_year')
+    assert b'Crossed, Volume 15' in resource.data
+
+def test_sort_by_publisher(client):
+    resource = client.get('/list_book_by_publisher')
+    assert b'Twin Spica, Volume: 03' in resource.data
