@@ -14,7 +14,7 @@ From here on you can choose if you want to use the provided domain model or your
 
 ## Python version
 
-Please use Python version 3.6 or newer versions for development. Some of the depending libraries of our web application do not support Python versions below 3.6!
+Please use Python version 3.6 or newer versions for development (Python 3.9 recommended). Some of the depending libraries of our web application do not support Python versions below 3.6!
 
 
 ## Installation
