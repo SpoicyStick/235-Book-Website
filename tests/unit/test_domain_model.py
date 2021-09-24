@@ -537,3 +537,15 @@ class TestBooksInventory:
         assert isinstance(book.publisher, Publisher)
         assert inventory.search_book_by_title("unknown") is None
 
+    def test_add_similar_books(self):
+        book = Book(1234, "test")
+        book.add_similar_book(3456)
+        assert len(book.similar_book)==1
+        book.add_similar_book("string")
+        assert len(book.similar_book) == 1
+        book.add_similar_book(-1234)
+        assert len(book.similar_book) == 1
+        book.add_similar_book(3456)
+        assert len(book.similar_book) == 1
+        book.add_similar_book(4567)
+        assert len(book.similar_book) == 2
