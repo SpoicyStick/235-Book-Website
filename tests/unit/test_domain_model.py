@@ -536,3 +536,4 @@ class TestBooksInventory:
         assert isinstance(book.authors[1], Author)
         assert isinstance(book.publisher, Publisher)
         assert inventory.search_book_by_title("unknown") is None
+

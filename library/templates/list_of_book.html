@@ -55,8 +55,8 @@
 <body>
 
 
-<div class="book-list-display">
-    {% if books == [] %}
+{% if books == [] %}
+    <div class="book-list-display" style="background: white;">
         <main id="main">
             <div class="formwrapper">
                 <img src="{{ url_for('static', filename='images/ogSUSu-sad.png') }}">
@@ -65,76 +65,78 @@
             </div>
         </main>
 
-    {% elif books == none%}
-            <main id="main">
-                <div class="formwrapper">
-                    <img src="{{ url_for('static', filename='images/ogSUSu-sad.png') }}">
-                    <p style="text-align:center; padding-top:10px;">Please enter a valid search value!</p>
-                </div>
-            </main>
-    {% else %}
-    <div class="sort">
-        <p>Sort by:
-            <a href="/list_book_by_title">Title</a>
-            | <a href="/list_book_by_isbn">ISBN</a>
-            | <a href="/list_book_by_release_year">Release Year</a>
-            | <a href="/list_book_by_publisher">Publisher</a>
-         </p>
-    </div>
-    <div class="book-list-parent">
-       <ul>
-            {% for book in books %}
-            <div class="book-display">
-            <li>
-                <form method="get" action="/book_info" class="inline">
-                      <input type="hidden" name="book_id" value="{{ book.book_id }}">
-                      <button type="submit" name="submit_param" value="submit_value" class="link-button">
-                          <div class="image_of_book">
-                            <a href="/book_info"><img src={{book.image}} width="230" height="344"></a>
-                          </div>
-                      </button>
-                </form>
-                <p><b>{{ book.title }}</b><br>
-                        {% for author in book.authors %}
-                            {% if author != book.authors[-1] %}
-                                <small>{{ author.full_name }},</small>
-                            {% else %}
-                                <small>{{ author.full_name }}.</small>
-                            {% endif %}
-                        {% endfor %}<br>
-                </p>
-
-
-            </li>
-                <form method="get" action="/book_info" class="inline">
-                      <input type="hidden" name="book_id" value="{{ book.book_id }}">
-                      <div class="read-more">
-                          <button type="submit" value="submit_value" name="read-more-button">
-                              <div class="read-more-text">Read More</div>
-                          </button>
-                      </div>
-                </form>
+{% elif books == none%}
+    <div class="book-list-display" style="background: white;">
+        <main id="main">
+            <div class="formwrapper">
+                <img src="{{ url_for('static', filename='images/ogSUSu-sad.png') }}">
+                <p style="text-align:center; padding-top:10px;">Please enter a valid search value!</p>
             </div>
-            {% endfor %}
-        </ul>
-    </div>
-
-
-    {% endif %}
-
-
-    <div class="pagination">
-        <div class="pagebutton">
-
-            {% for i in range(1, page_number) %}
-                <form method="get" action="/list_book" class="inline">
-                    <input type="hidden" name="clicked_page_number" value="{{i}}">
-                    <input type="submit" value="{{i}}">
-                </form>
-            {% endfor %}
-
-
+        </main>
+{% else %}
+    <div class="book-list-display">
+        <div class="sort">
+            <p>Sort by:
+                <a href="/list_book_by_title">Title</a>
+                | <a href="/list_book_by_isbn">ISBN</a>
+                | <a href="/list_book_by_release_year">Release Year</a>
+                | <a href="/list_book_by_publisher">Publisher</a>
+             </p>
         </div>
+        <div class="book-list-parent">
+           <ul>
+                {% for book in books %}
+                <div class="book-display">
+                <li>
+                    <form method="get" action="/book_info" class="inline">
+                          <input type="hidden" name="book_id" value="{{ book.book_id }}">
+                          <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                              <div class="image_of_book">
+                                <a href="/book_info"><img src={{book.image}} width="230" height="344"></a>
+                              </div>
+                          </button>
+                    </form>
+                    <p><b>{{ book.title }}</b><br>
+                            {% for author in book.authors %}
+                                {% if author != book.authors[-1] %}
+                                    <small>{{ author.full_name }},</small>
+                                {% else %}
+                                    <small>{{ author.full_name }}.</small>
+                                {% endif %}
+                            {% endfor %}<br>
+                    </p>
+
+
+                </li>
+                    <form method="get" action="/book_info" class="inline">
+                          <input type="hidden" name="book_id" value="{{ book.book_id }}">
+                          <div class="read-more">
+                              <button type="submit" value="submit_value" name="read-more-button">
+                                  <div class="read-more-text">Read More</div>
+                              </button>
+                          </div>
+                    </form>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+        {% endif %}
+
+
+        <div class="pagination">
+            <div class="pagebutton">
+
+                {% for i in range(1, page_number) %}
+                    <form method="get" action="/list_book" class="inline">
+                        <input type="hidden" name="clicked_page_number" value="{{i}}">
+                        <input type="submit" value="{{i}}">
+                    </form>
+                {% endfor %}
+
+
+            </div>
 
     </div>
 
