@@ -38,11 +38,11 @@
 
 .home-rand-book-heading{
     text-align:center;
-    padding-top:10px;
+    padding-top:40px;
 }
 
 .home-rand-container{
-    height: 600px;
+    height: 550px;
     display:block;
 
 }
@@ -55,14 +55,13 @@
 }
 .home-rand-right{
     height: auto;
-    width: 50%;
+    width: 60%;
     float:left;
-    padding: 0px 20px 0px 20px;
     margin-right: 100px;
 }
+
 .home-rand-contents {
     float: left;
-    align-self: center;
     display: flex;
     width: auto;
 }
@@ -72,7 +71,7 @@
     width: 95%;
     overflow: auto;
     vertical-align: middle;
-    padding: 0 20px 0px 20px;
+
 }
 .rand-home-description-contents{
     float: left;
@@ -139,9 +138,13 @@
                     </p>
                 </div>
                 <div class="home-rand-description">
-                    <br><h2>Description</h2><br>
+                    <h2>Description</h2>
                     <div class="rand-home-description-contents">
-                        <br><p>{{ selected_book.description }}</p>
+                        {% if selected_book.description == "" %}
+                            <p>No description for this Book.</p>
+                        {% else %}
+                        <p>{{ selected_book.description }}</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
