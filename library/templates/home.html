@@ -42,40 +42,51 @@
 }
 
 .home-rand-container{
-    height: 500px;
+    height: 600px;
+    display:block;
 
 }
 
-.home-rand-contents, .home-rand-title {
-    float: right;
+.home-rand-container-child{
+    display:block;
+    height: auto;
+    padding-left: 150px;
+    text-overflow: ellipsis;
+}
+.home-rand-right{
+    height: auto;
+    width: 50%;
+    float:left;
+    padding: 0px 20px 0px 20px;
+    margin-right: 100px;
+}
+.home-rand-contents {
+    float: left;
     align-self: center;
     display: flex;
-    width: 80%;
-
-
+    width: auto;
 }
 .home-rand-description{
-    float: right;
-    align-self: center;
-    display: flex;
-    width: 80%;
-
+    float: left;
+    height: auto;
+    width: 95%;
+    overflow: auto;
+    vertical-align: middle;
+    padding: 0 20px 0px 20px;
 }
 .rand-home-description-contents{
     float: left;
     align-self: center;
-    display: flex;
-    width: 50%;
+    display: inline-block;
     height:110px;
-    margin-left:40px;
     overflow: hidden;
-
 
 }
 
 .home-rand-image{
     float:left;
-    padding-left: 50px;
+
+
 }
 .home-rand-image img{
     height: 350px;
@@ -96,41 +107,43 @@
 
     <div class="home-rand-container">
         <div class="home-rand-book-heading">
-            <h1>🌽 "I'm Feeling Lucky!" 🌽</h1><br>
+            <h1>🌽 "I'm Feeling Lucky!" 🌽</h1>
         </div>
-        <div class="home-rand-image">
-            <form method="get" action="/book_info" class="inline">
-                  <input type="hidden" name="book_id" value="{{ selected_book.book_id }}">
-                  <button type="submit" name="submit_param" value="submit_value" class="link-button">
-                      <div class="image_of_book">
-                          <a href="/book_info"><img src={{selected_book.image}} ></a>
-                      </div>
-                  </button>
-            </form>
-        </div>
-        <div class="home-rand-right">
-            <div class="home-rand-title">
-                <h1>{{ selected_book.title }}</h1>
+        <div class="home-rand-container-child">
+            <div class="home-rand-image">
+                <form method="get" action="/book_info" class="inline">
+                      <input type="hidden" name="book_id" value="{{ selected_book.book_id }}">
+                      <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                          <div class="image_of_book">
+                              <a href="/book_info"><img src={{selected_book.image}} ></a>
+                          </div>
+                      </button>
+                </form>
             </div>
+            <div class="home-rand-right">
+                <div class="home-rand-title">
+                    <h1>{{ selected_book.title }}</h1>
+                </div>
 
-            <div class="home-rand-contents">
+                <div class="home-rand-contents">
 
-                <br>
-                <strong>Author</strong>:
-                    {% for author in selected_book.authors %}
-                        {% if author != selected_book.authors[-1] %}
-                            {{ author.full_name }},
-                        {% else %}
-                            {{ author.full_name }}
-                        {% endif %}
-                    {% endfor %}
-            </div>
-            <div class="home-rand-description">
-                <br><h2>Description</h2><br>
-
-            </div>
-            <div class="rand-home-description-contents">
-                <br><p>{{ selected_book.description }}</p>
+                    <br>
+                    <br><strong>Author</strong>:
+                        {% for author in selected_book.authors %}
+                            {% if author != selected_book.authors[-1] %}
+                                {{ author.full_name }},
+                            {% else %}
+                                {{ author.full_name }}
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                </div>
+                <div class="home-rand-description">
+                    <br><h2>Description</h2><br>
+                    <div class="rand-home-description-contents">
+                        <br><p>{{ selected_book.description }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

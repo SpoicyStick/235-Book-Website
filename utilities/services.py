@@ -1,7 +1,3 @@
-from flask import Blueprint, request, render_template, redirect, url_for, session
-
-import library.adapters.repository as repo
-import utilities.services as services
 
 from library.adapters.repository import AbstractRepository
 from random import randrange
