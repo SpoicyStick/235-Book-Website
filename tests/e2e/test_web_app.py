@@ -134,7 +134,7 @@ def test_search_release_publisher(client, auth):
     # Login a user.
     auth.login()
 
-    response = client.get('/search_book?search_by=PUBLISHER&search_value=Dargaud&=Find&clicked_page_number=1')
+    response = client.get('/search_book?&search_by=PUBLISHER&search_value=Dargaud&submit=Find&clicked_page_number=1')
     assert b'Cruelle' in response.data
 
 def test_pagnavigation_takes_user_to_correct_page(client, auth):
@@ -145,7 +145,7 @@ def test_pagnavigation_takes_user_to_correct_page(client, auth):
 
 def test_sort_by_title(client):
     resource = client.get('/list_book_by_title')
-    assert b'Cruelle' in resource.data
+    assert b'A.I. Revolution, Vol. 1' in resource.data
 
 def test_sort_by_isbn(client):
     resource = client.get('/list_book_by_isbn')
