@@ -1,6 +1,6 @@
-from library.domain.model import Book, BooksInventory, User, Author, Publisher
+from library.domain.model import Book
 from library.adapters.repository import AbstractRepository
-from library.domain.model import make_review, Review
+from library.domain.model import make_review
 
 class NonExistentBookException(Exception):
     pass
@@ -39,6 +39,9 @@ def search_by_publisher(publisher_name, repo: AbstractRepository):
     books = repo.search_by_publisher(publisher_name)
     return books
 
+def search_by_author(author_name, repo: AbstractRepository):
+    books = repo.search_by_author(author_name)
+    return books
 
 def add_review(book_id: int, review_text: str, user_name: str, rating: int, repo: AbstractRepository):
     # Check that the article exists.

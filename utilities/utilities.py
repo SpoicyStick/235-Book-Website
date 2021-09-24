@@ -13,7 +13,6 @@ utilities_blueprint = Blueprint(
     'utilities_bp', __name__)
 
 
-
 def get_selected_book():
     book = services.get_random_book(repo.repo_instance)
     return book

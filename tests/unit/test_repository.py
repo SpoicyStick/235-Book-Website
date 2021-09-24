@@ -1,5 +1,4 @@
-from datetime import date, datetime
-from typing import List
+
 
 import pytest
 
@@ -104,6 +103,41 @@ def test_repository_can_retrieve_review(in_memory_repo):
     in_memory_repo.add_review(review)
     assert len(in_memory_repo.get_review()) == 2
 
+def test_repository_can_get_correct_page_num(in_memory_repo):
+    books =in_memory_repo.get_page()
+    assert len(books) == 4
+    assert len(books['1']) == 8
 
-def test_repository_can_retrieve_book_by_book_id(in_memory_repo):
-    pass
+
+def test_repository_can_add_book(in_memory_repo):
+    in_memory_repo.add_book(Book(1234, "Title1"))
+    in_memory_repo.add_book(Book(2345, "Title2"))
+    in_memory_repo.add_book(Book(3456, "Title3"))
+    assert in_memory_repo.get_number_of_books() == 33
+
+def test_repository_can_get_number_of_books(in_memory_repo):
+    assert in_memory_repo.get_number_of_books() == 30
+
+def test_repository_can_get_similar_books(in_memory_repo):
+    similar_books = in_memory_repo.get_similar_books(in_memory_repo.get_book(13571772))
+    assert len(similar_books)==8
+    similar_books = in_memory_repo.get_similar_books(in_memory_repo.get_book(30128855))
+    assert len(similar_books) == 0
+
+def test_repository_can_sort_by_title(in_memory_repo):
+    books = in_memory_repo.sort_books_by_title()
+    assert books[:2] == [in_memory_repo.get_book(13340336), in_memory_repo.get_book(2250580)]
+
+def test_repository_can_sort_by_isbn(in_memory_repo):
+    books = in_memory_repo.sort_books_by_isbn()
+    assert books[:2] == [in_memory_repo.get_book(18711343), in_memory_repo.get_book(13340336)]
+
+
+def test_repository_can_sort_by_release_year(in_memory_repo):
+    books = in_memory_repo.sort_books_by_release_year()
+    assert books[:2] == [in_memory_repo.get_book(30128855), in_memory_repo.get_book(27036536)]
+
+def test_repository_can_sort_by_publisher(in_memory_repo):
+    books = in_memory_repo.sort_books_by_publisher()
+    assert books[:2] == [in_memory_repo.get_book(12349665), in_memory_repo.get_book(12349663)]
+

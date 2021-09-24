@@ -150,8 +150,8 @@ def book_info():
         'book_info.html',
         form=form,
         user_name=user_name,
-        book=repo.repo_instance.get_book(book_id),
-        similar_books= services.get_similar_books(repo.repo_instance.get_book(book_id), repo.repo_instance),
+        book=services.get_book(book_id, repo.repo_instance),
+        similar_books= services.get_similar_books(services.get_book(book_id, repo.repo_instance), repo.repo_instance),
         home_url=url_for('home_bp.home'),
         list_url=url_for('books_bp.list_book'),
         numbers = {"numbers": range(5)}
