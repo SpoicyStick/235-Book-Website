@@ -44,11 +44,20 @@
         {% if user_name != none%}
             <div class="user_name">Welcome {{user_name}}!</div>
         {% endif %}
+        {%if user_name == none %}
+            <div class="register-login">
+                <form  action="{{url_for('authentication_bp.login')}}">
+                    <button style="width:auto;">Login</button>
+                </form>
+            </div>
+        {% else%}
+            <div class="register-login">
+                <form  action="{{url_for('authentication_bp.logout')}}">
+                    <button style="width:auto;">Log out</button>
+                </form>
+            </div>
 
-        <div class="register-login">
-            <form  action="{{url_for('authentication_bp.login')}}">
-                <button style="width:auto;">Login</button>
-            </form>
+        {% endif %}
     </div>
 
 

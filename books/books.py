@@ -276,7 +276,7 @@ def review_a_book():
     return render_template(
         'review.html',
         book=book,
-        user = user_name,
+        user_name = user_name,
         reviewForm=reviewForm,
         form=form,
         handler_url=url_for('books_bp.review_a_book')
