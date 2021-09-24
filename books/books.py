@@ -51,12 +51,13 @@ def list_book_by_title():
             clicked_page_number = str(request.args.get('clicked_page_number'))
     except:
         pass
+    services.sort_books_by_title(repo.repo_instance)
     return render_template(
         'list_of_book.html',
         page_number=len(services.get_page(repo.repo_instance)) + 1,
         form=form,
         user_name = user_name,
-        books = services.sort_books_by_title(repo.repo_instance),
+        books = (services.get_page(repo.repo_instance))[str(clicked_page_number)],
         home_url=url_for('home_bp.home'),
         list_url=url_for('books_bp.list_book'),
         book_url=url_for('books_bp.book_info')
@@ -76,12 +77,13 @@ def list_book_by_isbn():
             clicked_page_number = str(request.args.get('clicked_page_number'))
     except:
         pass
+    services.sort_books_by_isbn(repo.repo_instance)
     return render_template(
         'list_of_book.html',
         page_number=len(services.get_page(repo.repo_instance)) + 1,
         form=form,
         user_name = user_name,
-        books = services.sort_books_by_isbn(repo.repo_instance),
+        books = (services.get_page(repo.repo_instance))[str(clicked_page_number)],
         home_url=url_for('home_bp.home'),
         list_url=url_for('books_bp.list_book'),
         book_url=url_for('books_bp.book_info')
@@ -101,12 +103,13 @@ def list_book_by_release_year():
             clicked_page_number = str(request.args.get('clicked_page_number'))
     except:
         pass
+    services.sort_books_by_release_year(repo.repo_instance)
     return render_template(
         'list_of_book.html',
         page_number=len(services.get_page(repo.repo_instance)) + 1,
         form=form,
         user_name = user_name,
-        books = services.sort_books_by_release_year(repo.repo_instance),
+        books = (services.get_page(repo.repo_instance))[str(clicked_page_number)],
         home_url=url_for('home_bp.home'),
         list_url=url_for('books_bp.list_book'),
         book_url=url_for('books_bp.book_info')
@@ -126,12 +129,13 @@ def list_book_by_publisher():
             clicked_page_number = str(request.args.get('clicked_page_number'))
     except:
         pass
+    services.sort_books_by_publisher(repo.repo_instance)
     return render_template(
         'list_of_book.html',
         page_number=len(services.get_page(repo.repo_instance)) + 1,
         form=form,
         user_name = user_name,
-        books = services.sort_books_by_publisher(repo.repo_instance),
+        books = (services.get_page(repo.repo_instance))[str(clicked_page_number)],
         home_url=url_for('home_bp.home'),
         list_url=url_for('books_bp.list_book'),
         book_url=url_for('books_bp.book_info')
