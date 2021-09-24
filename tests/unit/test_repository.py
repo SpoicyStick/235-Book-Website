@@ -103,3 +103,7 @@ def test_repository_can_retrieve_review(in_memory_repo):
     review = make_review("Very bad book!", user, book, 1)
     in_memory_repo.add_review(review)
     assert len(in_memory_repo.get_review()) == 2
+
+
+def test_repository_can_retrieve_book_by_book_id(in_memory_repo):
+    pass
