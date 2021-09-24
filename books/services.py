@@ -39,6 +39,9 @@ def search_by_publisher(publisher_name, repo: AbstractRepository):
     books = repo.search_by_publisher(publisher_name)
     return books
 
+def search_by_author(author_name, repo: AbstractRepository):
+    books = repo.search_by_author(author_name)
+    return books
 
 def add_review(book_id: int, review_text: str, user_name: str, rating: int, repo: AbstractRepository):
     # Check that the article exists.

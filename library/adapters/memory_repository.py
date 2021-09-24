@@ -44,6 +44,9 @@ class MemoryRepository(AbstractRepository):
     def get_book(self, id: int):
         return next((book for book in self.__books if book.book_id == id), None)
 
+    def get_number_of_books(self):
+        return len(self.__books)
+
     def search_by_title(self, title: str):
         matching =[]
         if isinstance(title, str):

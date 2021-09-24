@@ -7,6 +7,3 @@ import utilities.services as services
 utilities_blueprint = Blueprint(
     'utilities_bp', __name__)
 
-
-
-

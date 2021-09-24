@@ -74,3 +74,77 @@ def test_can_get_book(in_memory_repo):
 def test_return_none_for_book_with_non_existent_id(in_memory_repo):
     book = books_services.get_book(1, in_memory_repo)
     assert book == None
+
+def test_can_get_page(in_memory_repo):
+    book= books_services.get_page(in_memory_repo)
+    assert len(book) == 4
+
+
+def test_can_search_by_title(in_memory_repo):
+    book = books_services.search_by_title("Cruelle", in_memory_repo)
+    assert book == [books_services.get_book(30128855, in_memory_repo)]
+
+def test_search_by_nonexisting_title_returns_empty_list(in_memory_repo):
+    book = books_services.search_by_title("Title", in_memory_repo)
+    assert book == []
+
+
+def test_can_search_by_isbn(in_memory_repo):
+    book = books_services.search_by_isbn(2205073346, in_memory_repo)
+    assert book == [books_services.get_book(30128855, in_memory_repo)]
+
+def test_search_by_nonexisting_isbn_returns_empty_list(in_memory_repo):
+    book = books_services.search_by_isbn(1234, in_memory_repo)
+    assert book == []
+
+
+def test_can_search_by_release_year(in_memory_repo):
+    book = books_services.search_by_release_year(2016, in_memory_repo)
+    assert len(book) == 5
+
+def test_search_by_nonexisting_release_year_returns_empty_list(in_memory_repo):
+    book = books_services.search_by_release_year(2021, in_memory_repo)
+    assert book == []
+
+def test_can_search_by_publisher(in_memory_repo):
+    book = books_services.search_by_publisher("Dargaud", in_memory_repo)
+    assert book == [books_services.get_book(30128855, in_memory_repo)]
+
+def test_search_by_nonexisting_publisher_returns_empty_list(in_memory_repo):
+    book = books_services.search_by_publisher("Invalid name", in_memory_repo)
+    assert book == []
+
+
+def test_can_search_by_author(in_memory_repo):
+    book = books_services.search_by_author("Florence Dupre la Tour", in_memory_repo)
+    assert book == [books_services.get_book(30128855, in_memory_repo)]
+
+def test_search_by_nonexisting_publisher_returns_empty_list(in_memory_repo):
+    book = books_services.search_by_author("Invalid name", in_memory_repo)
+    assert book == []
+
+
+def test_can_get_similar_books(in_memory_repo):
+    book = books_services.get_similar_books(books_services.get_book(13571772, in_memory_repo), in_memory_repo)
+    assert len(book) ==8
+
+    book = books_services.get_similar_books(books_services.get_book(30128855, in_memory_repo), in_memory_repo)
+    assert book ==[]
+
+
+def test_service_can_sort_by_title(in_memory_repo):
+    book = books_services.sort_books_by_title(in_memory_repo)
+    assert book[:2] == [books_services.get_book(13340336, in_memory_repo), books_services.get_book(2250580), in_memory_repo]
+
+def test_service_can_sort_by_isbn(in_memory_repo):
+    book = books_services.sort_books_by_isbn(in_memory_repo)
+    assert book[:2] == [books_services.get_book(18711343, in_memory_repo), books_services.get_book(13340336, in_memory_repo)]
+
+def test_service_can_sort_by_release_year(in_memory_repo):
+    book = books_services.sort_books_by_release_year(in_memory_repo)
+    assert book[:2] == [books_services.get_book(30128855, in_memory_repo), books_services.get_book(27036536, in_memory_repo)]
+
+def test_service_can_sort_by_publisher(in_memory_repo):
+    book = books_services.sort_books_by_publisher(in_memory_repo)
+    assert book[:2] == [books_services.get_book(12349665, in_memory_repo), books_services.get_book(12349663, in_memory_repo)]
+

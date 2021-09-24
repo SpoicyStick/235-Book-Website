@@ -275,9 +275,8 @@ q {font-style: italic;}
 .similar-book-info{
     width: 25%;
     display: inline-block;
+    height: 325px;
     overflow: hidden;
-    height: 300px;
-    -webkit-line-clamp: 2;
     margin: 10px 10px 30px 10px;
 }
 
