@@ -34,9 +34,108 @@ def list_book():
         books=(services.get_page(repo.repo_instance))[str(clicked_page_number)],
         home_url=url_for('home_bp.home'),
         list_url=url_for('books_bp.list_book'),
-        book_url=url_for('books_bp.book_info'),
+        book_url=url_for('books_bp.book_info')
     )
 
+@books_blueprint.route('/list_book_by_title')
+def list_book_by_title():
+
+    if (session.get('logged_in')==True):
+        user_name = (session.get('user_name'))
+    else:
+        user_name = None
+    form = BookSearch()
+    clicked_page_number = '1'
+    try:
+        if request.args.get('clicked_page_number') != None:
+            clicked_page_number = str(request.args.get('clicked_page_number'))
+    except:
+        pass
+    return render_template(
+        'list_of_book.html',
+        page_number=len(services.get_page(repo.repo_instance)) + 1,
+        form=form,
+        user_name = user_name,
+        books = services.sort_books_by_title(repo.repo_instance),
+        home_url=url_for('home_bp.home'),
+        list_url=url_for('books_bp.list_book'),
+        book_url=url_for('books_bp.book_info')
+    )
+
+@books_blueprint.route('/list_book_by_isbn')
+def list_book_by_isbn():
+
+    if (session.get('logged_in')==True):
+        user_name = (session.get('user_name'))
+    else:
+        user_name = None
+    form = BookSearch()
+    clicked_page_number = '1'
+    try:
+        if request.args.get('clicked_page_number') != None:
+            clicked_page_number = str(request.args.get('clicked_page_number'))
+    except:
+        pass
+    return render_template(
+        'list_of_book.html',
+        page_number=len(services.get_page(repo.repo_instance)) + 1,
+        form=form,
+        user_name = user_name,
+        books = services.sort_books_by_isbn(repo.repo_instance),
+        home_url=url_for('home_bp.home'),
+        list_url=url_for('books_bp.list_book'),
+        book_url=url_for('books_bp.book_info')
+    )
+
+@books_blueprint.route('/list_book_by_release_year')
+def list_book_by_release_year():
+
+    if (session.get('logged_in')==True):
+        user_name = (session.get('user_name'))
+    else:
+        user_name = None
+    form = BookSearch()
+    clicked_page_number = '1'
+    try:
+        if request.args.get('clicked_page_number') != None:
+            clicked_page_number = str(request.args.get('clicked_page_number'))
+    except:
+        pass
+    return render_template(
+        'list_of_book.html',
+        page_number=len(services.get_page(repo.repo_instance)) + 1,
+        form=form,
+        user_name = user_name,
+        books = services.sort_books_by_release_year(repo.repo_instance),
+        home_url=url_for('home_bp.home'),
+        list_url=url_for('books_bp.list_book'),
+        book_url=url_for('books_bp.book_info')
+    )
+
+@books_blueprint.route('/list_book_by_publisher')
+def list_book_by_publisher():
+
+    if (session.get('logged_in')==True):
+        user_name = (session.get('user_name'))
+    else:
+        user_name = None
+    form = BookSearch()
+    clicked_page_number = '1'
+    try:
+        if request.args.get('clicked_page_number') != None:
+            clicked_page_number = str(request.args.get('clicked_page_number'))
+    except:
+        pass
+    return render_template(
+        'list_of_book.html',
+        page_number=len(services.get_page(repo.repo_instance)) + 1,
+        form=form,
+        user_name = user_name,
+        books = services.sort_books_by_publisher(repo.repo_instance),
+        home_url=url_for('home_bp.home'),
+        list_url=url_for('books_bp.list_book'),
+        book_url=url_for('books_bp.book_info')
+    )
 
 @books_blueprint.route('/book_info', methods=['GET'])
 def book_info():
@@ -55,6 +154,7 @@ def book_info():
         similar_books= services.get_similar_books(repo.repo_instance.get_book(book_id), repo.repo_instance),
         home_url=url_for('home_bp.home'),
         list_url=url_for('books_bp.list_book'),
+        numbers = {"numbers": range(5)}
     )
 
 

@@ -56,8 +56,9 @@ def test_repository_can_retrieve_books_by_publisher(in_memory_repo):
 def test_repository_can_retrieve_books_by_release_year(in_memory_repo):
     book1 = in_memory_repo.search_by_release_year(2013)
     book2 = Book(17405342, "Title")
+    book3 = Book(17277814, "title2")
     book2.publisher = 2013
-    assert book1 == [book2]
+    assert book1 == [book3, book2]
 
 
 def test_repository_returns_an_empty_list_for_non_existent_search_results(in_memory_repo):

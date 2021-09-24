@@ -30,7 +30,7 @@ class MemoryRepository(AbstractRepository):
     def get_page(self):
         key = 0
         for num in self.__books:
-            if self.__books.index(num) % 10 == 0:
+            if self.__books.index(num) % 8 == 0:
                 key += 1
                 self.__pages[str(key)] = []
                 self.__pages[str(key)].append(num)
@@ -107,6 +107,23 @@ class MemoryRepository(AbstractRepository):
             if book!=None:
                 matching.append(book)
         return matching
+
+    def sort_books_by_title(self):
+        self.__books= sorted(self.__books, key=lambda x: x.title.lower())
+        return self.__books
+
+    def sort_books_by_isbn(self):
+        self.__books=  sorted(self.__books, key=lambda x: -1 if x.isbn is None else x.isbn, reverse = True)
+        return self.__books
+
+
+    def sort_books_by_release_year(self):
+        self.__books=  sorted(self.__books, key=lambda x: -1 if x.release_year is None else x.release_year, reverse = True)
+        return self.__books
+
+    def sort_books_by_publisher(self):
+        self.__books = sorted(self.__books, key=lambda x: x.publisher.name.lower(), reverse = True)
+        return self.__books
 
 def load_books(data_path: Path, repo: MemoryRepository):
     books_filename = str(data_path / "comic_books_excerpt.json")
