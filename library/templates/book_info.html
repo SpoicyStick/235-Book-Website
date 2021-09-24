@@ -93,19 +93,23 @@
             <h2>Similar Books</h2>
             <br>
             <br>
-            {% for book in similar_books %}
-                <div class="similar-book-info">
-                    <form method="get" action="/book_info">
-                      <input type="hidden" name="book_id" value="{{ book.book_id }}">
-                      <button type="submit" name="submit_param" value="submit_value" class="link-button">
-                          <a href="/book_info"><img src={{book.image}} alt="{{book.title}}" title="{{book.title}}">
-                            <div style="  display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;"><p>{{book.title}}</p></div>
-                          </a>
-                      </button>
-                    </form>
-                    </a>
-                </div>
-            {% endfor %}
+            {% if similar_books == [] %}
+                    <p>No similar Books found!</p><br>
+            {% else %}
+                {% for book in similar_books %}
+                    <div class="similar-book-info">
+                        <form method="get" action="/book_info">
+                          <input type="hidden" name="book_id" value="{{ book.book_id }}">
+                          <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                              <a href="/book_info"><img src={{book.image}} alt="{{book.title}}" title="{{book.title}}">
+                                <div style="  display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;"><p>{{book.title}}</p></div>
+                              </a>
+                          </button>
+                        </form>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 
