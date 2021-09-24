@@ -33,6 +33,10 @@
   y-index: 100px;
   height: 70px;
 }
+.navigation{
+
+
+}
 .navigation a{
   float: left;
   color: #f2f2f2;
@@ -307,7 +311,7 @@ q {font-style: italic;}
   outline: none;
 }
 .link-button:active {
-  color:red;
+  color:white;
 }
 
 

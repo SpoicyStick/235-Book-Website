@@ -140,3 +140,4 @@ def test_repository_can_sort_by_release_year(in_memory_repo):
 def test_repository_can_sort_by_publisher(in_memory_repo):
     books = in_memory_repo.sort_books_by_publisher()
     assert books[:2] == [in_memory_repo.get_book(12349665), in_memory_repo.get_book(12349663)]
+

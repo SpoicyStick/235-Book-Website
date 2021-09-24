@@ -184,7 +184,7 @@ class Book:
         return self.__similar_book
 
     def add_similar_book(self, book_id:int):
-        if isinstance(book_id, int):
+        if isinstance(book_id, int) and book_id>=0 and book_id not in self.__similar_book:
             self.__similar_book.append(book_id)
 
     @property
