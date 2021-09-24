@@ -2,6 +2,9 @@ import flask
 from flask import Blueprint, render_template, url_for, session
 
 from books.books import BookSearch
+import utilities.utilities as utilities
+
+
 
 
 home_blueprint = Blueprint(
@@ -20,6 +23,7 @@ def home():
         'home.html',
         form= form,
         user_name=user_name,
+        selected_book = utilities.get_selected_book(),
         home_url = url_for('home_bp.home'),
         list_url = url_for('books_bp.list_book'),
         book_url = url_for('books_bp.book_info'),
