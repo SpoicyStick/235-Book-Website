@@ -16,16 +16,18 @@ def create_app(test_config=None):
     app = Flask(__name__)
 
     app.config.from_object('config.Config')
-
-
     data_path = Path('library') / 'adapters' / 'data'
+
     if test_config is not None:
         app.config.from_mapping(test_config)
         data_path = app.config['TEST_DATA_PATH']
-    repo.repo_instance = MemoryRepository()
-    populate(data_path, repo.repo_instance)
 
-    if app.config['REPOSITORY'] == 'database':
+    if app.config['REPOSITORY'] == 'memory':
+        repo.repo_instance = memory_repository.MemoryRepository()
+        database_mode = False
+        repository_populate.populate(data_path, repo.repo_instance, database_mode)
+
+    elif app.config['REPOSITORY'] == 'database':
         database_uri = app.config['SQLALCHEMY_DATABASE_URI']
         database_echo = app.config['SQLALCHEMY_ECHO']
         database_engine = create_engine(database_uri, connect_args={"check_same_thread": False}, poolclass=NullPool,

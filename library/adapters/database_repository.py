@@ -126,7 +126,7 @@ class SqlAlchemyRepository(AbstractRepository):
             return articles
 
     def get_page(self):
-        pass
+        return
 
     def add_review(self, review: Review):
         super().add_review(review)
@@ -139,19 +139,19 @@ class SqlAlchemyRepository(AbstractRepository):
         return reviews
 
     def sort_books_by_title(self):
-        pass
+        return
 
     def sort_books_by_isbn(self):
-        pass
+        return
 
     def sort_books_by_release_year(self):
-        pass
+        return
 
     def sort_books_by_publisher(self):
-        pass
+        return
 
     def get_similar_books(self):
-        pass
+        return
 
     def get_all_books(self):
         books = self._session_cm.session.query(Book).all()

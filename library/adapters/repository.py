@@ -12,13 +12,13 @@ class RepositoryException(Exception):
         pass
 
 class AbstractRepository(abc.ABC):
-    @abc.abstractmethod
-    def __iter__(self):
-        raise NotImplementedError
+    #@abc.abstractmethod
+    #def __iter__(self):
+        #raise NotImplementedError
 
-    @abc.abstractmethod
-    def __next__(self) -> Book:
-        raise NotImplementedError
+   #@abc.abstractmethod
+    #def __next__(self) -> Book:
+        #raise NotImplementedError
 
     @abc.abstractmethod
     def add_book(self, book: Book):
