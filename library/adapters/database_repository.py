@@ -51,40 +51,92 @@ class SqlAlchemyRepository(AbstractRepository):
         self._session_cm.reset_session()
 
     def add_book(self, book: Book):
-        return
+        with self._session_cm as scm:
+            scm.session.add(book)
+            scm.commit()
 
     def get_book(self, book) -> Book:
-        return
+        book = None
+        try:
+            book = self._session_cm.session.query(Book).filter(User._User__user_name == user_name).one()
+        except NoResultFound:
+            # Ignore any exception and return None.
+            pass
+
+        return book
 
     def get_user(self, user_name) -> User:
-        return
+        user = None
+        try:
+            user = self._session_cm.session.query(User).filter(User._User__user_name == user_name).one()
+        except NoResultFound:
+            # Ignore any exception and return None.
+            pass
+
+        return user
 
     def add_user(self, user: User):
-        return
+        with self._session_cm as scm:
+            scm.session.add(user)
+            scm.commit()
 
     def search_by_title(self, title: str):
-        return
+        if title is None:
+            books = self._session_cm.session.query(Book).all()
+            return books
+        else:
+            # Return articles matching target_date; return an empty list if there are no matches.
+            articles = self._session_cm.session.query(Article).filter(Article._Article__date == target_date).all()
+            return articles
 
     def search_by_isbn(self, isbn: int):
-        return
+        if isbn is None:
+            books = self._session_cm.session.query(Book).all()
+            return books
+        else:
+            # Return articles matching target_date; return an empty list if there are no matches.
+            articles = self._session_cm.session.query(Article).filter(Article._Article__date == target_date).all()
+            return articles
 
     def search_by_author(self, author_name: str):
-        return
+        if author_name is None:
+            books = self._session_cm.session.query(Book).all()
+            return books
+        else:
+            # Return articles matching target_date; return an empty list if there are no matches.
+            articles = self._session_cm.session.query(Article).filter(Article._Article__date == target_date).all()
+            return articles
 
     def search_by_release_year(self, release_year: int):
-        return
+        if release_year is None:
+            books = self._session_cm.session.query(Book).all()
+            return books
+        else:
+            # Return articles matching target_date; return an empty list if there are no matches.
+            articles = self._session_cm.session.query(Article).filter(Article._Article__date == target_date).all()
+            return articles
 
     def search_by_publisher(self, publisher: int):
-        return
+        if publisher is None:
+            books = self._session_cm.session.query(Book).all()
+            return books
+        else:
+            # Return articles matching target_date; return an empty list if there are no matches.
+            articles = self._session_cm.session.query(Article).filter(Article._Article__date == target_date).all()
+            return articles
 
     def get_page(self):
         return
 
     def add_review(self, review: Review):
-        return
+        super().add_review(review)
+        with self._session_cm as scm:
+            scm.session.add(review)
+            scm.commit()
 
     def get_review(self):
-        return
+        reviews = self._session_cm.session.query(Review).all()
+        return reviews
 
     def sort_books_by_title(self):
         return
@@ -102,4 +154,5 @@ class SqlAlchemyRepository(AbstractRepository):
         return
 
     def get_all_books(self):
-        return
+        books = self._session_cm.session.query(Book).all()
+        return books
