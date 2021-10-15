@@ -110,7 +110,7 @@ class Book:
         # use the attribute setter
 
         self.__isbn = None
-        self.title = book_title
+        self.__title = book_title
         self.__description = None
         self.__publisher = None
         self.__authors = []

@@ -51,55 +51,55 @@ class SqlAlchemyRepository(AbstractRepository):
         self._session_cm.reset_session()
 
     def add_book(self, book: Book):
-        pass
+        return
 
     def get_book(self, book) -> Book:
-        pass
+        return
 
     def get_user(self, user_name) -> User:
-        pass
+        return
 
     def add_user(self, user: User):
-        pass
+        return
 
     def search_by_title(self, title: str):
-        pass
+        return
 
     def search_by_isbn(self, isbn: int):
-        pass
+        return
 
     def search_by_author(self, author_name: str):
-        pass
+        return
 
     def search_by_release_year(self, release_year: int):
-        pass
+        return
 
     def search_by_publisher(self, publisher: int):
-        pass
+        return
 
     def get_page(self):
-        pass
+        return
 
     def add_review(self, review: Review):
-        pass
+        return
 
     def get_review(self):
-        pass
+        return
 
     def sort_books_by_title(self):
-        pass
+        return
 
     def sort_books_by_isbn(self):
-        pass
+        return
 
     def sort_books_by_release_year(self):
-        pass
+        return
 
     def sort_books_by_publisher(self):
-        pass
+        return
 
     def get_similar_books(self):
-        pass
+        return
 
     def get_all_books(self):
-        pass
+        return
