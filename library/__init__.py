@@ -1,7 +1,7 @@
 """Initialize Flask app."""
 import library.adapters.repository as repo
 from library.adapters import memory_repository, database_repository, repository_populate
-from library.adapters.orm import  import metadata, map_model_to_tables
+from library.adapters.orm import metadata, map_model_to_tables
 from pathlib import Path
 from flask import Flask
 
