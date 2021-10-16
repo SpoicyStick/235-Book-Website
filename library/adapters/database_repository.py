@@ -7,7 +7,7 @@ from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from sqlalchemy.orm import scoped_session
 from flask import _app_ctx_stack
 
-from library.domain.model import User, Book, Review
+from library.domain.model import User, Book, Review, Author
 from library.adapters.repository import AbstractRepository
 
 class SessionContextManager:
@@ -50,20 +50,27 @@ class SqlAlchemyRepository(AbstractRepository):
     def reset_session(self):
         self._session_cm.reset_session()
 
+    def add_author(self, author: Author):
+        with self._session_cm as scm:
+            scm.session.add(author)
+            scm.commit()
+
+    def get_authors(self) -> Author:
+        authors = self._session_cm.session.query(Author).all()
+        return authors
+
     def add_book(self, book: Book):
         with self._session_cm as scm:
             scm.session.add(book)
             scm.commit()
 
-    def get_book(self, book) -> Book:
-        book = None
-        try:
-            book = self._session_cm.session.query(Book).filter(User._User__user_name == user_name).one()
-        except NoResultFound:
-            # Ignore any exception and return None.
-            pass
-
-        return book
+    def get_book(self, target_book_id) -> Book:
+        if target_book_id is None:
+            books = self._session_cm.session.query(Book).all()
+            return books
+        else:
+            books = self._session_cm.session.query(Book).filter(Book.book_id==target_book_id).all()
+            return books
 
     def get_user(self, user_name) -> User:
         user = None
