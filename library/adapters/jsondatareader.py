@@ -11,6 +11,7 @@ class BooksJSONReader:
         self.__authors_file_name = authors_file_name
         self.__dataset_of_books = []
         self.__dataset_of_authors = {}
+        self.__dataset_of_publishers = {}
 
     @property
     def dataset_of_books(self) -> List[Book]:
@@ -19,6 +20,10 @@ class BooksJSONReader:
     @property
     def dataset_of_authors(self) -> dict[Author]:
         return self.__dataset_of_authors
+
+    @property
+    def dataset_of_publishers(self) -> dict[Publisher]:
+        return self.__dataset_of_publishers
 
     def read_books_file(self) -> list:
         books_json = []
@@ -43,7 +48,10 @@ class BooksJSONReader:
 
         for book_json in books_json:
             book_instance = Book(int(book_json['book_id']), book_json['title'])
-            book_instance.publisher = Publisher(book_json['publisher'])
+            publisher = Publisher(book_json['publisher'])
+            if publisher not in self.__dataset_of_publishers.keys():
+                self.__dataset_of_publishers[publisher] = []
+            self.__dataset_of_publishers[publisher].append(book_instance)
 
             book_instance.image = book_json['image_url']
 

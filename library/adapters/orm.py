@@ -26,7 +26,8 @@ books_table = Table(
     Column('ebook', Boolean),
     Column('num_pages', Integer),
     Column('image', Text, nullable=False),
-    Column('rating', Integer)
+    Column('rating', Integer),
+    Column('publisher', ForeignKey('publishers.id'))
 )
 
 reviews_table = Table(
@@ -54,7 +55,7 @@ authorships_table = Table(
 publishers_table = Table(
     'publishers', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('name', Text,  nullable=False)
+    Column('name', Text,  nullable=False, unique=True)
 )
 
 similar_books_table = Table(
@@ -76,7 +77,8 @@ def map_model_to_tables():
     })
 
     mapper(model.Publisher, publishers_table, properties={
-        '_Publisher__name': publishers_table.c.name
+        '_Publisher__name': publishers_table.c.name,
+        '_Publishers__books_published': relationship(model.Book, backref = '_Book__publisher')
     })
 
     mapper(model.Book, books_table, properties={
@@ -90,7 +92,8 @@ def map_model_to_tables():
         '_Book__image': books_table.c.image,
         '_Book__average_rating': books_table.c.rating,
         '_Book__reviews': relationship(model.Review, backref='_Review__book'),
-        '_Book__authors': relationship(model.Author, secondary=authorships_table, back_populates='_Author__authorship')
+        '_Book__authors': relationship(model.Author, secondary=authorships_table, back_populates='_Author__authorship'),
+        '_Book__publisher': relationship(model.Publisher, backref='_Publishers__books_published')
     })
 
     mapper(model.Author, authors_table, properties={

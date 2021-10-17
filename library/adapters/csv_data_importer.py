@@ -36,23 +36,23 @@ def load_users(data_path: Path, repo: AbstractRepository):
 
 
 def load_books(data_path: Path, repo: AbstractRepository, database_mode: bool):
-    authors = dict()
     books_filename = str(data_path / "comic_books_excerpt.json")
     author_filename = str(data_path / "book_authors_excerpt.json")
 
     data = BooksJSONReader(books_filename, author_filename)
     data.read_json_files()
-
+    print(data.dataset_of_publishers.keys())
     for book in data.dataset_of_books:
         repo.add_book(book)
+        book.publisher.add_book(book)
 
     for author in data.dataset_of_authors.keys():
-        if database_mode is True:
-            for book in (data.dataset_of_authors[author]):
-                book.add_author(author)
-        else:
-            make_author_association(book, author)
         repo.add_author(author)
+        for book in (data.dataset_of_authors[author]):
+            if database_mode is True:
+                book.add_author(author)
+            else:
+                make_author_association(book, author)
 
 
 def load_reviews(data_path: Path, repo: AbstractRepository, users):
@@ -60,7 +60,7 @@ def load_reviews(data_path: Path, repo: AbstractRepository, users):
     for data_row in read_csv_file(comments_filename):
         review = make_review(
             review_text=data_row[3],
-            user=users[data_row[1]],
+            user=repo.get_user(data_row[1]),
             book= repo.get_book(int(data_row[2])),
             rating=int(data_row[4])
         )

@@ -147,7 +147,7 @@ class Book:
         # use the attribute setter
 
         self.__isbn = None
-        self.__title = book_title
+        self.title = book_title
         self.__description = None
         self.__publisher = None
         self.__authors = []
@@ -499,3 +499,4 @@ def make_author_association(book: Book, author: Author):
     if author in book.authors:
         raise ModelException(f'Author {author.full_name} already applied to Book "{book.title}"')
     author.add_book(book)
+    book.add_author(author)
