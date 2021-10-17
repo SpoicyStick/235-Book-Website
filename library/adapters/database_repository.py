@@ -164,19 +164,57 @@ class SqlAlchemyRepository(AbstractRepository):
         return reviews
 
     def sort_books_by_title(self):
+        key = 0
+        pages = {}
         books = self._session_cm.session.query(Book).order_by(Book._Book__title).all()
-        print(books)
+        for num in books:
+            if books.index(num) % 8 == 0:
+                key += 1
+                pages[str(key)] = []
+                pages[str(key)].append(num)
+            else:
+                pages[str(key)].append(num)
         return books
 
     def sort_books_by_isbn(self):
-        books = self._session_cm.session.query(Book).order_by(desc(Book._Book__isbn)).first()
+        key = 0
+        pages = {}
+        books = self._session_cm.session.query(Book).order_by(Book._Book__isbn).all()
+        for num in books:
+            if books.index(num) % 8 == 0:
+                key += 1
+                pages[str(key)] = []
+                pages[str(key)].append(num)
+            else:
+                pages[str(key)].append(num)
         return books
 
     def sort_books_by_release_year(self):
-        return
+        key = 0
+        pages = {}
+        books = self._session_cm.session.query(Book).order_by(Book._Book__release_year).all()
+        for num in books:
+            if books.index(num) % 8 == 0:
+                key += 1
+                pages[str(key)] = []
+                pages[str(key)].append(num)
+            else:
+                pages[str(key)].append(num)
+        return books
 
     def sort_books_by_publisher(self):
-        return
+        key = 0
+        pages = {}
+        books = (self._session_cm.session.query(Book).order_by(Book.publisher_name).all())
+
+        for num in books:
+            if books.index(num) % 8 == 0:
+                key += 1
+                pages[str(key)] = []
+                pages[str(key)].append(num)
+            else:
+                pages[str(key)].append(num)
+        return books
 
     def get_similar_books(self, book: Book):
         sim_books = []
@@ -184,6 +222,7 @@ class SqlAlchemyRepository(AbstractRepository):
             book = self._session_cm.session.query(Book).filter(Book._Book__book_id == sim_book.book_id).one()
             if book!=None:
                 sim_books.append(book)
+
         return sim_books
 
     def get_all_books(self):

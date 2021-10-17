@@ -19,7 +19,7 @@ books_table = Table(
     Column('num_pages', Integer),
     Column('image', Text, nullable=False),
     Column('rating', Integer),
-    Column('publisher_id', ForeignKey('publishers.id'))
+    Column('publisher_name', ForeignKey('publishers.name'))
 )
 
 users_table = Table(

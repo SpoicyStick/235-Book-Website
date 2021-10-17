@@ -41,18 +41,9 @@ def load_books(data_path: Path, repo: AbstractRepository, database_mode: bool):
 
     data = BooksJSONReader(books_filename, author_filename)
     data.read_json_files()
-    """    for book_id in data.dataset_of_similar_books:
-            books= repo.get_book(book_id)
 
-            if books!=[]:
-                print(books)
-                for book in books:
-                    for sim_book in (data.dataset_of_similar_books[str(book.book_id)]):
-                        book.add_similar_book(sim_book)
-                        sim_book.add_similar_book(book)"""
     for book in data.dataset_of_books:
         repo.add_book(book)
-
 
     for book_id in data.dataset_of_similar_books.keys():
         book = repo.get_book(book_id)
@@ -60,9 +51,6 @@ def load_books(data_path: Path, repo: AbstractRepository, database_mode: bool):
             for sim_book in data.dataset_of_similar_books[book_id]:
                 book.add_similar_book(sim_book)
                 sim_book.add_similar_book(book)
-
-
-
 
     for publisher in data.dataset_of_publishers.keys():
         for book in (data.dataset_of_publishers[publisher]):

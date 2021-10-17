@@ -82,3 +82,7 @@ def sort_books_by_release_year(repo: AbstractRepository):
 
 def sort_books_by_publisher(repo: AbstractRepository):
     return repo.sort_books_by_publisher()
+
+
+def get_all_books(repo: AbstractRepository):
+    return repo.get_all_books()
