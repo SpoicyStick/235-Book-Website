@@ -60,8 +60,8 @@ publishers_table = Table(
 
 similar_books_table = Table(
     'similar_books', metadata,
-    Column('book_id', ForeignKey('books.id')),
-    Column('similar_book_id', ForeignKey('books.id')),
+    Column('book_id', Integer, ForeignKey('books.id'),  primary_key=True),
+    Column('similar_book_id', Integer, ForeignKey('books.id'), primary_key=True)
 )
 
 def map_model_to_tables():
@@ -80,7 +80,6 @@ def map_model_to_tables():
         '_Publisher__name': publishers_table.c.name,
         '_Publisher__books_published': relationship(model.Book, backref='_Book__publisher')
     })
-
     mapper(model.Book, books_table, properties={
         '_Book__book_id': books_table.c.id,
         '_Book__isbn': books_table.c.isbn,
@@ -92,8 +91,13 @@ def map_model_to_tables():
         '_Book__image': books_table.c.image,
         '_Book__average_rating': books_table.c.rating,
         '_Book__reviews': relationship(model.Review, backref='_Review__book'),
-        '_Book__authors': relationship(model.Author, secondary=authorships_table, back_populates='_Author__authorship')
+        '_Book__authors': relationship(model.Author, secondary=authorships_table, back_populates='_Author__authorship'),
+        '_Book__similar_book': relationship(model.Book, secondary=similar_books_table,
+                                            primaryjoin=books_table.c.id == similar_books_table.c.book_id,
+                                            secondaryjoin=books_table.c.id == similar_books_table.c.similar_book_id,
+                                            back_populates='_Book__similar_book')
     })
+
 
     mapper(model.Author, authors_table, properties={
         '_Author__unique_id': authors_table.c.id,

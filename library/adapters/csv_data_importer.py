@@ -45,6 +45,24 @@ def load_books(data_path: Path, repo: AbstractRepository, database_mode: bool):
     for book in data.dataset_of_books:
         repo.add_book(book)
 
+    for book_id in data.dataset_of_similar_books:
+        books= repo.get_book(book_id)
+
+        if books!=[]:
+            for book in books:
+                for sim_book in (data.dataset_of_similar_books[str(book.book_id)]):
+                    book.add_similar_book(sim_book)
+                    sim_book.add_similar_book(book)
+
+
+    for book in repo.get_all_books():
+        for similar_book in book.similar_book:
+            simiar_books = repo.get_book(int(similar_book.book_id))
+            if simiar_books != []:
+                for sim_book in simiar_books:
+                    sim_book.add_similar_book(book)
+
+
     for publisher in data.dataset_of_publishers.keys():
         for book in (data.dataset_of_publishers[publisher]):
             book.publisher = publisher
