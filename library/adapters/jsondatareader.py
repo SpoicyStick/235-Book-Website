@@ -12,6 +12,7 @@ class BooksJSONReader:
         self.__dataset_of_books = []
         self.__dataset_of_authors = {}
         self.__dataset_of_publishers = {}
+        self.__dataset_of_similar_books = {}
 
     @property
     def dataset_of_books(self) -> List[Book]:
@@ -20,6 +21,10 @@ class BooksJSONReader:
     @property
     def dataset_of_authors(self) -> dict[Author]:
         return self.__dataset_of_authors
+
+    @property
+    def dataset_of_similar_books(self) -> dict[Author]:
+        return self.__dataset_of_similar_books
 
     @property
     def dataset_of_publishers(self) -> dict[Publisher]:
@@ -76,7 +81,10 @@ class BooksJSONReader:
             if book_json['num_pages'] != "":
                 book_instance.num_pages = int(book_json['num_pages'])
             for book_id in (book_json['similar_books']):
-                book_instance.add_similar_book(int(book_id))
+                if book_id not in self.__dataset_of_similar_books.keys():
+                    self.__dataset_of_similar_books[book_id] = []
+                self.__dataset_of_similar_books[book_id].append(book_instance)
+
             # extract the author ids:
             list_of_authors_ids = book_json['authors']
             for author_id in list_of_authors_ids:
