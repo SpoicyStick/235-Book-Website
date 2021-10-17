@@ -65,12 +65,12 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.commit()
 
     def get_book(self, target_book_id) -> Book:
-        if target_book_id is None:
-            books = self._session_cm.session.query(Book).all()
-            return books
-        else:
-            books = self._session_cm.session.query(Book).filter(Book._Book__book_id==target_book_id).all()
-            return books
+        book = None
+        try:
+            book = self._session_cm.session.query(Book).filter(Book._Book__book_id==target_book_id).one()
+        except:
+            pass
+        return book
 
     def get_user(self, user_name) -> User:
         user = None
@@ -178,8 +178,13 @@ class SqlAlchemyRepository(AbstractRepository):
     def sort_books_by_publisher(self):
         return
 
-    def get_similar_books(self):
-        return
+    def get_similar_books(self, book: Book):
+        sim_books = []
+        for sim_book in book.similar_book:
+            book = self._session_cm.session.query(Book).filter(Book._Book__book_id == sim_book.book_id).one()
+            if book!=None:
+                sim_books.append(book)
+        return sim_books
 
     def get_all_books(self):
         books = self._session_cm.session.query(Book).all()

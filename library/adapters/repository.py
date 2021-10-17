@@ -98,8 +98,8 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_similar_books(self):
-      raise NotImplementedErr
+    def get_similar_books(self, book: Book):
+      raise NotImplementedError
       
     @abc.abstractmethod
     def get_all_books(self):
