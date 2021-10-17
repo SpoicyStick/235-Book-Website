@@ -41,10 +41,14 @@ def load_books(data_path: Path, repo: AbstractRepository, database_mode: bool):
 
     data = BooksJSONReader(books_filename, author_filename)
     data.read_json_files()
-    print(data.dataset_of_publishers.keys())
+
     for book in data.dataset_of_books:
         repo.add_book(book)
-        # book.publisher.add_book(book)
+
+    for publisher in data.dataset_of_publishers.keys():
+        for book in (data.dataset_of_publishers[publisher]):
+            book.publisher = publisher
+            publisher.add_book(book)
 
     for author in data.dataset_of_authors.keys():
         repo.add_author(author)

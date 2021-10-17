@@ -8,14 +8,6 @@ from library.domain import model
 
 metadata = MetaData()
 
-
-users_table = Table(
-    'users', metadata,
-    Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('user_name', String(255), unique=True, nullable=False),
-    Column('password', String(255), nullable=False)
-)
-
 books_table = Table(
     'books', metadata,
     Column('id', Integer, primary_key=True),
@@ -27,8 +19,16 @@ books_table = Table(
     Column('num_pages', Integer),
     Column('image', Text, nullable=False),
     Column('rating', Integer),
-    Column('publisher', ForeignKey('publishers.id'))
+    Column('publisher_id', ForeignKey('publishers.id'))
 )
+
+users_table = Table(
+    'users', metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('user_name', String(255), unique=True, nullable=False),
+    Column('password', String(255), nullable=False)
+)
+
 
 reviews_table = Table(
     'reviews', metadata,
@@ -77,8 +77,8 @@ def map_model_to_tables():
     })
 
     mapper(model.Publisher, publishers_table, properties={
-        '_Publisher__name': publishers_table.c.name
-        # '_Publishers__books_published': relationship(model.Book, backref = '_Book__publisher')
+        '_Publisher__name': publishers_table.c.name,
+        '_Publisher__books_published': relationship(model.Book, backref='_Book__publisher')
     })
 
     mapper(model.Book, books_table, properties={
@@ -93,7 +93,6 @@ def map_model_to_tables():
         '_Book__average_rating': books_table.c.rating,
         '_Book__reviews': relationship(model.Review, backref='_Review__book'),
         '_Book__authors': relationship(model.Author, secondary=authorships_table, back_populates='_Author__authorship')
-        # '_Book__publisher': relationship(model.Publisher, backref='_Publishers__books_published')
     })
 
     mapper(model.Author, authors_table, properties={
