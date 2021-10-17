@@ -77,9 +77,7 @@ class SqlAlchemyRepository(AbstractRepository):
         try:
             user = self._session_cm.session.query(User).filter(User._User__user_name == user_name).one()
         except NoResultFound:
-            # Ignore any exception and return None.
             pass
-
         return user
 
     def add_user(self, user: User):
@@ -92,9 +90,7 @@ class SqlAlchemyRepository(AbstractRepository):
         try:
             publisher = self._session_cm.session.query(User).filter(Publisher._Publisher__name == publisher_name).one()
         except NoResultFound:
-            # Ignore any exception and return None.
             pass
-
         return publisher
 
     def add_publisher(self, publisher: Publisher):
@@ -108,48 +104,54 @@ class SqlAlchemyRepository(AbstractRepository):
             books = self._session_cm.session.query(Book).all()
             return books
         else:
-            # Return articles matching target_date; return an empty list if there are no matches.
-            articles = self._session_cm.session.query(Article).filter(Article._Article__date == target_date).all()
-            return articles
+            books = self._session_cm.session.query(Book).filter(Book._Book__title == title).all()
+            return books
 
     def search_by_isbn(self, isbn: int):
         if isbn is None:
             books = self._session_cm.session.query(Book).all()
             return books
         else:
-            # Return articles matching target_date; return an empty list if there are no matches.
-            articles = self._session_cm.session.query(Article).filter(Article._Article__date == target_date).all()
-            return articles
+            books = self._session_cm.session.query(Book).filter(Book._Book__isbn == isbn).all()
+            return books
 
     def search_by_author(self, author_name: str):
         if author_name is None:
             books = self._session_cm.session.query(Book).all()
             return books
         else:
-            # Return articles matching target_date; return an empty list if there are no matches.
-            articles = self._session_cm.session.query(Article).filter(Article._Article__date == target_date).all()
-            return articles
+            books = self._session_cm.session.query(Book).filter(Book._Book__authors == author_name).all()
+            return books
 
     def search_by_release_year(self, release_year: int):
         if release_year is None:
             books = self._session_cm.session.query(Book).all()
             return books
         else:
-            # Return articles matching target_date; return an empty list if there are no matches.
-            articles = self._session_cm.session.query(Article).filter(Article._Article__date == target_date).all()
-            return articles
+            books = self._session_cm.session.query(Book).filter(Book._Book__release_year == release_year).all()
+            return books
 
     def search_by_publisher(self, publisher: int):
         if publisher is None:
             books = self._session_cm.session.query(Book).all()
             return books
         else:
-            # Return articles matching target_date; return an empty list if there are no matches.
-            articles = self._session_cm.session.query(Article).filter(Article._Article__date == target_date).all()
-            return articles
+            books = self._session_cm.session.query(Book).filter(Book._Article__date == target_date).all()
+            return books
 
     def get_page(self):
-        return
+        key = 0
+        pages = {}
+
+        books = self._session_cm.session.query(Book).all()
+        for num in books:
+            if books.index(num) % 8 == 0:
+                key += 1
+                pages[str(key)] = []
+                pages[str(key)].append(num)
+            else:
+                pages[str(key)].append(num)
+        return pages
 
     def add_review(self, review: Review):
         super().add_review(review)
@@ -162,10 +164,13 @@ class SqlAlchemyRepository(AbstractRepository):
         return reviews
 
     def sort_books_by_title(self):
-        return
+        books = self._session_cm.session.query(Book).order_by(Book._Book__title).all()
+        print(books)
+        return books
 
     def sort_books_by_isbn(self):
-        return
+        books = self._session_cm.session.query(Book).order_by(desc(Book._Book__isbn)).first()
+        return books
 
     def sort_books_by_release_year(self):
         return
