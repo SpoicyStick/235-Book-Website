@@ -44,7 +44,7 @@ def load_books(data_path: Path, repo: AbstractRepository, database_mode: bool):
     print(data.dataset_of_publishers.keys())
     for book in data.dataset_of_books:
         repo.add_book(book)
-        # book.publisher.add_book(book)
+        book.publisher.add_book(book)
 
     for author in data.dataset_of_authors.keys():
         repo.add_author(author)
@@ -58,11 +58,10 @@ def load_books(data_path: Path, repo: AbstractRepository, database_mode: bool):
 def load_reviews(data_path: Path, repo: AbstractRepository, users):
     comments_filename = str(Path(data_path)/"reviews.csv")
     for data_row in read_csv_file(comments_filename):
-
         review = make_review(
             review_text=data_row[3],
             user=repo.get_user(data_row[1]),
-            book= ((repo.get_book(int(data_row[2])))[0]),
+            book= repo.get_book(int(data_row[2])),
             rating=int(data_row[4])
         )
         repo.add_review(review)
