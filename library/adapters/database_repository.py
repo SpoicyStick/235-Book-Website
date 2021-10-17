@@ -69,7 +69,7 @@ class SqlAlchemyRepository(AbstractRepository):
             books = self._session_cm.session.query(Book).all()
             return books
         else:
-            books = self._session_cm.session.query(Book).filter(Book._Book__book_id==target_book_id).all()
+            books = self._session_cm.session.query(Book).filter(Book.book_id==target_book_id).all()
             return books
 
     def get_user(self, user_name) -> User:
