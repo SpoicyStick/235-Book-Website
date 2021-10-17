@@ -149,7 +149,6 @@ def book_info():
         user_name = None
     form = BookSearch()
     book_id = int(request.args.get('book_id'))
-
     return render_template(
         'book_info.html',
         form=form,
