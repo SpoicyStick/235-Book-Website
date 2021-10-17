@@ -5,21 +5,44 @@ from typing import List
 class Publisher:
 
     def __init__(self, publisher_name: str):
+
         # This makes sure the setter is called here in the initializer/constructor as well.
         self.name = publisher_name
+        self.__books_published = []
+
 
     @property
     def name(self) -> str:
         return self.__name
 
     @name.setter
-    def name(self, publisher_name: str):
+    def name(self, publisher_name):
         self.__name = "N/A"
         if isinstance(publisher_name, str):
             # Make sure leading and trailing whitespace is removed.
             publisher_name = publisher_name.strip()
             if publisher_name != "":
                 self.__name = publisher_name
+    @property
+    def books_published(self):
+        return self.__books_published
+
+    def add_book(self, book):
+        if not isinstance(book, Book):
+            return
+
+        if book in self.__books_published:
+            return
+
+        self.__books_published.append(book)
+
+    def remove_book(self, book):
+        if not isinstance(book, Book):
+            return
+
+        if book in self.__books_published:
+            self.__books_published.remove(book)
+
 
     def __repr__(self):
         return f'<Publisher {self.name}>'
@@ -53,6 +76,7 @@ class Author:
         # Initialize author colleagues data structure with empty set.
         # We use a set so each unique author is only represented once.
         self.__authors_this_one_has_worked_with = set()
+        self.__authorship=[]
 
     @property
     def unique_id(self) -> int:
@@ -73,6 +97,19 @@ class Author:
                 raise ValueError
         else:
             raise ValueError
+    @property
+    def authorship(self):
+        return self.__authorship
+
+    def add_book(self, book):
+        self.__authorship.append(book)
+
+    def remove_book(self, book):
+        if not isinstance(book, Book):
+            return
+
+        if book in self.__authorship:
+            self.__authorship.remove(book)
 
     def add_coauthor(self, coauthor):
         if isinstance(coauthor, self.__class__) and coauthor.unique_id != self.unique_id:
@@ -110,7 +147,7 @@ class Book:
         # use the attribute setter
 
         self.__isbn = None
-        self.__title = book_title
+        self.title = book_title
         self.__description = None
         self.__publisher = None
         self.__authors = []
@@ -238,6 +275,7 @@ class Book:
 
         if author in self.__authors:
             self.__authors.remove(author)
+            author.remove_book(self)
 
     @property
     def reviews(self):
@@ -444,6 +482,10 @@ class BooksInventory:
         return None
 
 
+class ModelException(Exception):
+    pass
+
+
 def make_review(review_text: str, user: User, book: Book, rating: int):
     review = Review(book, review_text, rating)
     review.user = user
@@ -451,3 +493,10 @@ def make_review(review_text: str, user: User, book: Book, rating: int):
         user.add_review(review)
     book.add_review(review)
     return review
+
+
+def make_author_association(book: Book, author: Author):
+    if author in book.authors:
+        raise ModelException(f'Author {author.full_name} already applied to Book "{book.title}"')
+    author.add_book(book)
+    book.add_author(author)
