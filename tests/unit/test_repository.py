@@ -101,7 +101,7 @@ def test_repository_can_retrieve_review(in_memory_repo):
     book = in_memory_repo.get_book(30128855)
     review = make_review("Very bad book!", user, book, 1)
     in_memory_repo.add_review(review)
-    assert len(in_memory_repo.get_review()) == 2
+    assert len(in_memory_repo.get_review()) == 3
 
 def test_repository_can_get_correct_page_num(in_memory_repo):
     books =in_memory_repo.get_page()

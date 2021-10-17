@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    Table, MetaData, Column, Integer, String, Date, DateTime, Boolean, Text,
+    Table, MetaData, Column, Integer, String, Date, DateTime, Boolean, Text, CheckConstraint,
     ForeignKey
 )
 from sqlalchemy.orm import mapper, relationship, synonym
@@ -26,7 +26,8 @@ books_table = Table(
     Column('ebook', Boolean),
     Column('num_pages', Integer),
     Column('image', Text, nullable=False),
-    Column('rating', Integer)
+    Column('rating', Integer),
+    Column('publisher', ForeignKey('publishers.id'))
 )
 
 reviews_table = Table(
@@ -35,8 +36,7 @@ reviews_table = Table(
     Column('user_id', ForeignKey('users.id')),
     Column('book_id', ForeignKey('books.id')),
     Column('description', Text, nullable=False),
-    Column('rating', Integer, nullable=False),
-    Column('timestamp', DateTime, nullable=False)
+    Column('rating', Integer, nullable=False)
 )
 
 authors_table = Table(
@@ -55,14 +55,13 @@ authorships_table = Table(
 publishers_table = Table(
     'publishers', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('name', Text, nullable=False)
+    Column('name', Text,  nullable=False, unique=True)
 )
 
 similar_books_table = Table(
     'similar_books', metadata,
-    Column('id', Integer, primary_key=True, autoincrement=True),
     Column('book_id', ForeignKey('books.id')),
-    Column('similar_book_id', ForeignKey('books.id'))
+    Column('similar_book_id', ForeignKey('books.id')),
 )
 
 def map_model_to_tables():
@@ -72,24 +71,33 @@ def map_model_to_tables():
         '_User__reviews': relationship(model.Review, backref='_Review__user')
     })
 
+    mapper(model.Review, reviews_table, properties={
+        '_Review__review_text': reviews_table.c.description,
+        '_Review__rating': reviews_table.c.rating
+    })
+
+    mapper(model.Publisher, publishers_table, properties={
+        '_Publisher__name': publishers_table.c.name,
+        '_Publishers__books_published': relationship(model.Book, backref = '_Book__publisher')
+    })
+
     mapper(model.Book, books_table, properties={
         '_Book__book_id': books_table.c.id,
         '_Book__isbn': books_table.c.isbn,
         '_Book__title': books_table.c.title,
         '_Book__description': books_table.c.description,
-        '_Book__publisher': relationship(model.Publisher, backref=''),
-        '_Book__authors': relationship(model.Author, backref=''),
         '_Book__release_year': books_table.c.release_year,
         '_Book__ebook': books_table.c.ebook,
-        '_Book__num_pages':books_table.c.num_pages,
+        '_Book__num_pages': books_table.c.num_pages,
         '_Book__image': books_table.c.image,
         '_Book__average_rating': books_table.c.rating,
-        '_Book__reviews': relationship(model.Review, backref='_Review__book')#,
-        #'_Book__similar_book': relationship(model.Book, secondary=similar_books_table)
+        '_Book__reviews': relationship(model.Review, backref='_Review__book'),
+        '_Book__authors': relationship(model.Author, secondary=authorships_table, back_populates='_Author__authorship'),
+        '_Book__publisher': relationship(model.Publisher, backref='_Publishers__books_published')
     })
 
-    mapper(model.Review, reviews_table, properties={
-        '_Review__review_text': reviews_table.c.description,
-        '_Review__timestamp': reviews_table.c.timestamp,
-        '_Review__rating': reviews_table.c.rating
+    mapper(model.Author, authors_table, properties={
+        '_Author__unique_id': authors_table.c.id,
+        '_Author__full_name': authors_table.c.name,
+        '_Author__authorship': relationship(model.Book, secondary=authorships_table, back_populates='_Book__authors')
     })

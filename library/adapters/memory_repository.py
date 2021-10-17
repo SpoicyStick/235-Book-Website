@@ -1,6 +1,6 @@
 
 from library.adapters.repository import AbstractRepository, RepositoryException
-from library.domain.model import Book, BooksInventory, User, Review
+from library.domain.model import Book, BooksInventory, User, Review, Author
 
 class MemoryRepository(AbstractRepository):
 
@@ -9,6 +9,7 @@ class MemoryRepository(AbstractRepository):
         self.__users = list()
         self.__pages = dict()
         self.__reviews = list()
+        self.__authors = list()
 
     def __iter__(self):
         self._current = 0
@@ -37,6 +38,12 @@ class MemoryRepository(AbstractRepository):
 
     def get_book(self, id: int):
         return next((book for book in self.__books if book.book_id == id), None)
+
+    def add_author(self, author: Author):
+        self.__authors.append(author)
+
+    def get_authors(self):
+        return self.__authors
 
     def get_number_of_books(self):
         return len(self.__books)

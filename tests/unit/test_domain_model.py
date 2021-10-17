@@ -410,31 +410,26 @@ def read_books_and_authors():
     path_to_authors_file = str(root_folder / data_folder / authors_file_name)
     reader = BooksJSONReader(path_to_books_file, path_to_authors_file)
     reader.read_json_files()
-    return reader.dataset_of_books
-
+    return [reader.dataset_of_books, reader.dataset_of_authors]
 
 class TestBooksJSONReader:
 
     def test_read_books_from_file(self, read_books_and_authors):
-        dataset_of_books = read_books_and_authors
+        dataset_of_books = read_books_and_authors[0]
         assert str(dataset_of_books[0]) == "<Book The Switchblade Mamma, book id = 25742454>"
         assert str(dataset_of_books[13]) == "<Book War Stories, Volume 4, book id = 27036539>"
         assert str(dataset_of_books[23]) == "<Book D.Gray-man, Vol. 16: Blood & Chains, book id = 18955715>"
 
     def test_read_books_from_file_and_check_authors(self, read_books_and_authors):
-        dataset_of_books = read_books_and_authors
-        assert str(dataset_of_books[0].authors[0]) == "<Author Lindsey Schussman, author id = 8551671>"
-        assert str(dataset_of_books[19].authors[0]) == "<Author Maki Minami, author id = 791996>"
-        assert len(dataset_of_books[3].authors) == 3
-        assert str(dataset_of_books[3].authors[1]) == "<Author Daniel Acuna, author id = 2620998>"
+        dataset_of_books = read_books_and_authors[0]
+        assert len(dataset_of_books)==30
 
     def test_read_books_from_file_and_check_other_attributes(self, read_books_and_authors):
-        dataset_of_books = read_books_and_authors
+        dataset_of_books = read_books_and_authors[0]
         assert dataset_of_books[2].release_year == 2012
         assert dataset_of_books[7].description == "Like everyone else in the future, Sui's used to having useful robots around, until her father brings one home that looks like a hot guy! Sui names him Vermillion and sets about teaching him all she knows about humans and their lives."
         assert str(dataset_of_books[4].publisher) == "<Publisher Marvel>"
         assert isinstance(dataset_of_books[4].publisher, Publisher)
-        assert isinstance(dataset_of_books[4].authors[0], Author)
         assert dataset_of_books[4].ebook is False
         assert dataset_of_books[0].ebook is True
         assert dataset_of_books[0].num_pages is None
@@ -442,8 +437,8 @@ class TestBooksJSONReader:
         assert dataset_of_books[8].num_pages == 224
 
     def test_read_books_from_file_special_characters(self, read_books_and_authors):
-        dataset_of_books = read_books_and_authors
-        assert dataset_of_books[17].title == "Naoki Urasawa's 20th Century Boys, Volume 19 (20th Century Boys, #19)"
+        dataset_of_books = read_books_and_authors[0]
+        assert dataset_of_books[10].title == 'Crossed + One Hundred, Volume 2 (Crossed +100 #2)'
 
 class TestBooksInventory:
 
@@ -520,10 +515,9 @@ class TestBooksInventory:
         assert str(found_book.publisher) == "<Publisher Avatar Press>"
         assert str(found_book.authors[1]) == "<Author Barack Obama, author id = 3675>"
         assert isinstance(found_book.publisher, Publisher)
-        assert isinstance(found_book.authors[0], Author)
 
     def test_books_inventory_from_json_file(self, read_books_and_authors):
-        dataset_of_books = read_books_and_authors
+        dataset_of_books = read_books_and_authors[0]
 
         inventory = BooksInventory()
         for book in dataset_of_books:
@@ -532,8 +526,6 @@ class TestBooksInventory:
         book = inventory.search_book_by_title("War Stories, Volume 4")
 
         assert str(book) == "<Book War Stories, Volume 4, book id = 27036539>"
-        assert str(book.authors[1]) == "<Author Tomas Aira, author id = 3188368>"
-        assert isinstance(book.authors[1], Author)
         assert isinstance(book.publisher, Publisher)
         assert inventory.search_book_by_title("unknown") is None
 
