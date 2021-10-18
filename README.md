@@ -32,8 +32,10 @@ When using PyCharm for requirements installation, set the virtual environment us
 
 ## Testing with the pytest unit tests
 
-After you have configured pytest as the testing tool for PyCharm (File - Settings - Tools - Python Integrated Tools - Testing), you can then run tests from within PyCharm by right-clicking the tests folder and selecting "Run pytest in tests".
-
+After you have configured pytest as the testing tool for PyCharm (File - Settings - Tools - Python Integrated Tools - Testing), you can then run tests from within PyCharm by right-clicking the tests folder and selecting:
+''''shell
+"Run pytest in tests".
+''''
 Alternatively, from a terminal in the root folder of the project, you can also call 'python -m pytest test_folder' to run all the tests. PyCharm also provides a built-in terminal, which uses the configured virtual environment. 
 
 
@@ -45,7 +47,9 @@ From the project directory, and within the activated virtual environment (see *v
 
 ````shell
 $ flask run
+
 ```` 
+**If given an IntegrityError, please restart the website by running the same command!**
 
 ## Data sources 
 
