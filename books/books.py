@@ -3,7 +3,6 @@ from flask import Blueprint, request, render_template, redirect, url_for, sessio
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, HiddenField, IntegerField, SubmitField, StringField, SelectField
 from wtforms.validators import DataRequired, Length, ValidationError
-# from better_profanity import profanity
 from authentication.authentication import login_required
 
 import books.services as services

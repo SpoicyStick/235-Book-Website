@@ -44,7 +44,6 @@ def search_by_author(author_name, repo: AbstractRepository):
     return books
 
 def add_review(book_id: int, review_text: str, user_name: str, rating: int, repo: AbstractRepository):
-    # Check that the article exists.
     book = repo.get_book(book_id)
 
     if book is None:

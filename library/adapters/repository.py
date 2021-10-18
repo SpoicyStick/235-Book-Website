@@ -1,6 +1,4 @@
 import abc
-from datetime import datetime
-from typing import List
 
 from library.domain.model import Publisher, Author, Book, Review, User, BooksInventory
 
