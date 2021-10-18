@@ -100,43 +100,52 @@ class SqlAlchemyRepository(AbstractRepository):
 
 
     def search_by_title(self, title: str):
+        books=[]
         if title is None:
-            books = self._session_cm.session.query(Book).all()
             return books
         else:
             books = self._session_cm.session.query(Book).filter(Book._Book__title == title).all()
             return books
 
     def search_by_isbn(self, isbn: int):
+        books=[]
         if isbn is None:
-            books = self._session_cm.session.query(Book).all()
             return books
         else:
             books = self._session_cm.session.query(Book).filter(Book._Book__isbn == isbn).all()
             return books
 
     def search_by_author(self, author_name: str):
+        books=[]
         if author_name is None:
-            books = self._session_cm.session.query(Book).all()
             return books
         else:
-            books = self._session_cm.session.query(Book).filter(Book._Book__authors == author_name).all()
+            try:
+                author = self._session_cm.session.query(Author).filter(Author._Author__full_name == author_name).one()
+                author = author.unique_id
+                authorship = self._session_cm.session.execute('SELECT book_id FROM authorships WHERE author_id = :author', {'author': author}).fetchall()
+                for book_id in authorship:
+                    book =self.get_book(book_id[0])
+                    if book != None:
+                        books.append(book)
+            except:
+                pass
             return books
 
     def search_by_release_year(self, release_year: int):
+        books=[]
         if release_year is None:
-            books = self._session_cm.session.query(Book).all()
             return books
         else:
             books = self._session_cm.session.query(Book).filter(Book._Book__release_year == release_year).all()
             return books
 
-    def search_by_publisher(self, publisher: int):
-        if publisher is None:
-            books = self._session_cm.session.query(Book).all()
+    def search_by_publisher(self, publisher_name: str):
+        books=[]
+        if publisher_name is None:
             return books
         else:
-            books = self._session_cm.session.query(Book).filter(Book._Article__date == target_date).all()
+            books = self._session_cm.session.query(Book).filter(Book.publisher_name == publisher_name).all()
             return books
 
     def get_page(self):
@@ -164,56 +173,19 @@ class SqlAlchemyRepository(AbstractRepository):
         return reviews
 
     def sort_books_by_title(self):
-        key = 0
-        pages = {}
         books = self._session_cm.session.query(Book).order_by(Book._Book__title).all()
-        for num in books:
-            if books.index(num) % 8 == 0:
-                key += 1
-                pages[str(key)] = []
-                pages[str(key)].append(num)
-            else:
-                pages[str(key)].append(num)
         return books
 
     def sort_books_by_isbn(self):
-        key = 0
-        pages = {}
         books = self._session_cm.session.query(Book).order_by(Book._Book__isbn).all()
-        for num in books:
-            if books.index(num) % 8 == 0:
-                key += 1
-                pages[str(key)] = []
-                pages[str(key)].append(num)
-            else:
-                pages[str(key)].append(num)
         return books
 
     def sort_books_by_release_year(self):
-        key = 0
-        pages = {}
         books = self._session_cm.session.query(Book).order_by(Book._Book__release_year).all()
-        for num in books:
-            if books.index(num) % 8 == 0:
-                key += 1
-                pages[str(key)] = []
-                pages[str(key)].append(num)
-            else:
-                pages[str(key)].append(num)
         return books
 
     def sort_books_by_publisher(self):
-        key = 0
-        pages = {}
         books = (self._session_cm.session.query(Book).order_by(Book.publisher_name).all())
-
-        for num in books:
-            if books.index(num) % 8 == 0:
-                key += 1
-                pages[str(key)] = []
-                pages[str(key)].append(num)
-            else:
-                pages[str(key)].append(num)
         return books
 
     def get_similar_books(self, book: Book):
