@@ -48,7 +48,7 @@ def load_books(data_path: Path, repo: AbstractRepository, database_mode: bool):
     for book_id in data.dataset_of_similar_books.keys():
         book = repo.get_book(book_id)
         if book!=None:
-            for sim_book in data.dataset_of_similar_books[book_id]:
+            for sim_book in data.dataset_of_similar_books[int(book_id)]:
                 book.add_similar_book(sim_book)
                 sim_book.add_similar_book(book)
 

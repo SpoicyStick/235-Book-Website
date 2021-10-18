@@ -124,6 +124,7 @@ def test_repository_can_get_similar_books(in_memory_repo):
     similar_books = in_memory_repo.get_similar_books(in_memory_repo.get_book(30128855))
     assert len(similar_books) == 0
 
+
 def test_repository_can_sort_by_title(in_memory_repo):
     books = in_memory_repo.sort_books_by_title()
     assert books[:2] == [in_memory_repo.get_book(13340336), in_memory_repo.get_book(2250580)]

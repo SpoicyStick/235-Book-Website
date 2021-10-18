@@ -106,10 +106,8 @@ class MemoryRepository(AbstractRepository):
 
     def get_similar_books(self, book: Book):
         matching = []
-        for book_id in book.similar_book:
-            book= self.get_book(book_id)
-            if book!=None:
-                matching.append(book)
+        for book in book.similar_book:
+            matching.append(book)
         return matching
 
     def sort_books_by_title(self):

@@ -428,8 +428,6 @@ class TestBooksJSONReader:
         dataset_of_books = read_books_and_authors[0]
         assert dataset_of_books[2].release_year == 2012
         assert dataset_of_books[7].description == "Like everyone else in the future, Sui's used to having useful robots around, until her father brings one home that looks like a hot guy! Sui names him Vermillion and sets about teaching him all she knows about humans and their lives."
-        assert str(dataset_of_books[4].publisher) == "<Publisher Marvel>"
-        assert isinstance(dataset_of_books[4].publisher, Publisher)
         assert dataset_of_books[4].ebook is False
         assert dataset_of_books[0].ebook is True
         assert dataset_of_books[0].num_pages is None
@@ -516,28 +514,19 @@ class TestBooksInventory:
         assert str(found_book.authors[1]) == "<Author Barack Obama, author id = 3675>"
         assert isinstance(found_book.publisher, Publisher)
 
-    def test_books_inventory_from_json_file(self, read_books_and_authors):
-        dataset_of_books = read_books_and_authors[0]
-
-        inventory = BooksInventory()
-        for book in dataset_of_books:
-            inventory.add_book(book, 10, 3)
-
-        book = inventory.search_book_by_title("War Stories, Volume 4")
-
-        assert str(book) == "<Book War Stories, Volume 4, book id = 27036539>"
-        assert isinstance(book.publisher, Publisher)
-        assert inventory.search_book_by_title("unknown") is None
 
     def test_add_similar_books(self):
         book = Book(1234, "test")
+        book2 = Book(12334, "test")
         book.add_similar_book(3456)
-        assert len(book.similar_book)==1
+        assert len(book.similar_book)==0
         book.add_similar_book("string")
-        assert len(book.similar_book) == 1
+        assert len(book.similar_book) == 0
         book.add_similar_book(-1234)
-        assert len(book.similar_book) == 1
+        assert len(book.similar_book) == 0
         book.add_similar_book(3456)
-        assert len(book.similar_book) == 1
+        assert len(book.similar_book) == 0
         book.add_similar_book(4567)
-        assert len(book.similar_book) == 2
+        assert len(book.similar_book) == 0
+        book.add_similar_book(book2)
+        assert len(book.similar_book) == 1
