@@ -376,10 +376,10 @@ class Review:
             return False
 
         return other.book == self.book and other.review_text == self.review_text \
-               and other.rating == self.rating and other.timestamp == self.timestamp
+               and other.rating == self.rating
 
     def __repr__(self):
-        return f'<Review of book {self.book}, rating = {self.rating}, timestamp = {self.timestamp}>'
+        return f'<Review of book {self.book}, rating = {self.rating}, user = {self.user}>'
 
 
 class User:
