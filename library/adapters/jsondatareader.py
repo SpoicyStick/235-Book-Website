@@ -81,9 +81,9 @@ class BooksJSONReader:
             if book_json['num_pages'] != "":
                 book_instance.num_pages = int(book_json['num_pages'])
             for book_id in (book_json['similar_books']):
-                if book_id not in self.__dataset_of_similar_books.keys():
-                    self.__dataset_of_similar_books[book_id] = []
-                self.__dataset_of_similar_books[book_id].append(book_instance)
+                if int(book_id) not in self.__dataset_of_similar_books.keys():
+                    self.__dataset_of_similar_books[int(book_id)] = []
+                self.__dataset_of_similar_books[int(book_id)].append(book_instance)
 
             # extract the author ids:
             list_of_authors_ids = book_json['authors']

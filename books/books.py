@@ -51,13 +51,14 @@ def list_book_by_title():
             clicked_page_number = str(request.args.get('clicked_page_number'))
     except:
         pass
-    services.sort_books_by_title(repo.repo_instance)
+
+
     return render_template(
         'list_of_book.html',
         page_number=len(services.get_page(repo.repo_instance)) + 1,
         form=form,
         user_name = user_name,
-        books = (services.get_page(repo.repo_instance))[str(clicked_page_number)],
+        books = (services.sort_books_by_title(repo.repo_instance)),
         home_url=url_for('home_bp.home'),
         list_url=url_for('books_bp.list_book'),
         book_url=url_for('books_bp.book_info')
@@ -83,7 +84,7 @@ def list_book_by_isbn():
         page_number=len(services.get_page(repo.repo_instance)) + 1,
         form=form,
         user_name = user_name,
-        books = (services.get_page(repo.repo_instance))[str(clicked_page_number)],
+        books = (services.sort_books_by_isbn(repo.repo_instance)),
         home_url=url_for('home_bp.home'),
         list_url=url_for('books_bp.list_book'),
         book_url=url_for('books_bp.book_info')
@@ -109,7 +110,7 @@ def list_book_by_release_year():
         page_number=len(services.get_page(repo.repo_instance)) + 1,
         form=form,
         user_name = user_name,
-        books = (services.get_page(repo.repo_instance))[str(clicked_page_number)],
+        books = (services.sort_books_by_release_year(repo.repo_instance)),
         home_url=url_for('home_bp.home'),
         list_url=url_for('books_bp.list_book'),
         book_url=url_for('books_bp.book_info')
@@ -135,7 +136,7 @@ def list_book_by_publisher():
         page_number=len(services.get_page(repo.repo_instance)) + 1,
         form=form,
         user_name = user_name,
-        books = (services.get_page(repo.repo_instance))[str(clicked_page_number)],
+        books = (services.sort_books_by_publisher(repo.repo_instance)),
         home_url=url_for('home_bp.home'),
         list_url=url_for('books_bp.list_book'),
         book_url=url_for('books_bp.book_info')
@@ -148,7 +149,7 @@ def book_info():
     else:
         user_name = None
     form = BookSearch()
-    book_id = int(request.args.get('book_id'))
+    book_id = int(float((request.args.get('book_id'))))
     return render_template(
         'book_info.html',
         form=form,

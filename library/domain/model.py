@@ -102,7 +102,8 @@ class Author:
         return self.__authorship
 
     def add_book(self, book):
-        self.__authorship.append(book)
+        if isinstance(book, Book) and book not in self.__authorship:
+            self.__authorship.append(book)
 
     def remove_book(self, book):
         if not isinstance(book, Book):
@@ -221,7 +222,7 @@ class Book:
         return self.__similar_book
 
     def add_similar_book(self, book):
-        if isinstance(book, Book):
+        if isinstance(book, Book) and book not in self.similar_book:
             self.__similar_book.append(book)
 
     @property
